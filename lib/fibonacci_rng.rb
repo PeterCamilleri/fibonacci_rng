@@ -1,6 +1,18 @@
+# coding: utf-8
+
 require "fibonacci_rng/version"
 
+#The class of Fibonacci inspired random number generators.
 class FibonacciRng
+
+  #A class instance variable to hold the tickle value.
+  @tickle = '0'
+
+  #Create the default seed string.
+  def self.seed
+    Time.now.to_s + @tickle.succ!
+  end
+
   CHOP = 0x3FFFFFFF
   BYTE = 0xFF
   WORD = 0xFFFF
@@ -10,22 +22,18 @@ class FibonacciRng
   attr_reader :depth
 
   #Initialize the PRN generator
-  def initialize(depth=8, seed=Time.now.to_s)
+  def initialize(depth=8, seed=FibonacciRng.seed)
     fail "Invalid depth value (3..30)." unless (3..30) === depth
     @depth = depth
     reseed(seed)
   end
 
   #Set up a new seed value
-  def reseed(seed=Time.now.to_s)
+  def reseed(seed=FibonacciRng.seed)
     @buffer = Array.new(@depth+2, 0)
     seedsrc = (seed.to_s + seed.class.to_s + 'Leonardo Pisano').each_byte.cycle
     indxsrc = (0...depth).cycle
-
-    1024.times do
-      @buffer[indxsrc.next] += seedsrc.next
-      do_spin
-    end
+    do_reseed(indxsrc, seedsrc)
   end
 
   #Roll a dice.
@@ -41,13 +49,13 @@ class FibonacciRng
   end
 
   #Get a pseudo random word
-  def byte
+  def word
     do_spin
     @buffer[0] & WORD
   end
 
   #Get a pseudo random float
-  def byte
+  def float
     do_spin
     @buffer[0].to_f / BASE
   end
@@ -60,13 +68,21 @@ class FibonacciRng
   end
 
   private
+  #Do the work of reseeding the PRNG
+  def do_reseed(indxsrc, seedsrc)
+    1024.times do
+      @buffer[indxsrc.next] += seedsrc.next
+      do_spin
+    end
+  end
+
   #Cycle through the PRNG once.
   def do_spin
-    buffer[-2] = buffer[0]
-    buffer[-1] = buffer[1]
+    @buffer[-2] = @buffer[0]
+    @buffer[-1] = @buffer[1]
 
-    0...depth do |i|
-      buffer[i] = (buffer[i+1] + (buffer[i+2] >> 1)) & CHOP
+    0...depth do |idx|
+      @buffer[idx] = (@buffer[idx+1] + (@buffer[idx+2] >> 1)) & CHOP
     end
   end
 
