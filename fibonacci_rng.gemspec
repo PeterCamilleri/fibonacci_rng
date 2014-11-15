@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = FibonacciRng::VERSION
   spec.authors       = ["Peter Camilleri"]
   spec.email         = ["peter.c.camilleri@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = "A Fibonacci inspired pseudo random number generator. Just try and prove that is sucks! ;-)"
+  spec.summary       = "A Fibonacci inspired pseudo random number generator."
   spec.homepage      = ""
   spec.license       = "MIT"
 
