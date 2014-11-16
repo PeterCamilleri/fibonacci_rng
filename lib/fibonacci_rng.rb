@@ -81,7 +81,7 @@ class FibonacciRng
     @buffer[-2] = @buffer[0]
     @buffer[-1] = @buffer[1]
 
-    0...depth do |idx|
+    (0...@depth).each do |idx|
       @buffer[idx] = (@buffer[idx+1] + (@buffer[idx+2] >> 1)) & CHOP
     end
   end
