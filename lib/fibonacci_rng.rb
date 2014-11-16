@@ -13,10 +13,10 @@ class FibonacciRng
     Time.now.to_s + @tickle.succ!
   end
 
-  CHOP = 0x3FFFFFFF
+  CHOP = 0x1FFFFFFF
   BYTE = 0xFF
   WORD = 0xFFFF
-  BASE = 1073741824.0
+  BASE = (CHOP+1).to_f
 
   #An accessor for the depth!
   attr_reader :depth
@@ -38,7 +38,12 @@ class FibonacciRng
 
   #Roll a dice.
   def dice(sides)
-    do_spin
+    limit = ((CHOP+1) / sides) * sides
+
+    begin
+      do_spin
+    end until @buffer[0] < limit
+
     @buffer[0] % sides
   end
 

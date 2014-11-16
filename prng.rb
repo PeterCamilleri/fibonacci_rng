@@ -1,57 +1,78 @@
 # coding: utf-8
 
-require 'fibonacci_rng'
+#The Pseudo Random Number Generation Test Suite.
+module PrngTestSuite
 
-class DistributionTest
+  #Display usage info and exit
+  def self.usage(msg=nil)
+    puts
+    puts "PrngTestSuite Version 0.0.2"
 
-  def initialize(bin_size)
-    @max  = bin_size
-    @bins = Array.new(bin_size, 0)
-  end
-
-  def run(count)
-    start_time = Time.now
-    puts "Starting test"
-    prng = FibonacciRng.new
-
-    count.times do
-      #@bins[prng.dice(@max)] += 1
-      @bins[rand(@max)] += 1
+    if msg
+      puts
+      puts msg
     end
 
-    puts "Test completed (#{Time.now - start_time} elapsed)"
-    puts "Raw Bins = #{@bins.inspect}"
+    puts
+    puts "Usage Info:"
+    puts
+    puts "$ ruby prng.rb <locn> <gen> <test> <max> <count>"
+    puts
+    puts "Where:"
+    puts "  <locn>  fib code location, either 'gem' or 'local'"
+    puts "  <gen>   select a generator, either 'fib' or 'int'"
+    puts "  <test>  select a test, either 'chisq' or 'auto'"
+    puts "  <max>   the number of bins to test    (2..65535)"
+    puts "  <count> the number of samples to test (1..1000000)"
+    puts
 
-    normalized = @bins.collect {|value| value.to_f/count }
-
-    puts "Nrm Bins = #{normalized.inspect}"
-
-    expected = 1/@max.to_f
-    puts "Expected = #{expected}"
-
-    err_sqr = normalized.collect{|value| diff = expected - value; diff*diff}
-    puts "Esq Bins = #{err_sqr.inspect}"
-
-    chi_sq = err_sqr.inject {|sum, value| sum + value}
-    puts "Chi Squared = #{chi_sq}"
+    exit
   end
 
 end
 
-bin_limits = (3..1000)
-bin_size = ARGV[0].to_i
-
-count_limits = (1..10000000)
-count = ARGV[1].to_i
-
-unless bin_limits === bin_size
-  puts "Invalid or missing bin size parameter. #{bin_limits}"
-  exit
+if ARGV[0] == 'gem'
+  require 'fibonacci_rng'
+elsif ARGV[0] == 'local'
+  require_relative 'lib/fibonacci_rng'
+elsif ARGV[0] == 'help'
+  PrngTestSuite.usage
+else
+  PrngTestSuite.usage "Error: missing or invalid locn parameter."
 end
 
-unless count_limits === count
-  puts "Invalid or missing count parameter. #{count_limits}"
-  exit
+require_relative 'tools/internal_rng'
+require_relative 'tools/chi_squared'
+
+module PrngTestSuite
+
+  def self.main
+    if ARGV[1] == 'fib'
+      gen = FibonacciRng.new
+    elsif ARGV[1] == 'int'
+      gen = InternalRng.new
+    else
+      PrngTestSuite.usage "Error: missing or invalid gen parameter."
+    end
+
+    if ARGV[2] == 'chisq'
+      tester = ChiSquaredTest.new
+    elsif ARGV[2] == 'auto'
+      tester = nil #not written yet!
+    else
+      PrngTestSuite.usage "Error: missing or invalid test parameter."
+    end
+
+    unless (2..65535) === (max = ARGV[3].to_i)
+      PrngTestSuite.usage "Error: missing or invalid max parameter."
+    end
+
+    unless (1..10000000) === (count = ARGV[4].to_i)
+      PrngTestSuite.usage "Error: missing or invalid count parameter."
+    end
+
+    tester.run(gen, max, count)
+  end
 end
 
-DistributionTest.new(bin_size).run(count)
+PrngTestSuite.main

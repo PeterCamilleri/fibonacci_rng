@@ -44,6 +44,16 @@ class CoreTester < MiniTest::Unit::TestCase
 
   end
 
+  def test_that_it_creates_floats
+    prng = FibonacciRng.new
+
+    100.times do
+      value = prng.float
+      assert((value >= 0.0) && (value < 1.0))
+    end
+
+  end
+
   def test_that_it_makes_unique_sequnces
     prnga = FibonacciRng.new
     prngb = FibonacciRng.new
