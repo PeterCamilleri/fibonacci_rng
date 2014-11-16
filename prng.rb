@@ -43,6 +43,7 @@ end
 
 require_relative 'tools/internal_rng'
 require_relative 'tools/chi_squared'
+require_relative 'tools/auto_corr'
 
 module PrngTestSuite
 
@@ -58,7 +59,7 @@ module PrngTestSuite
     if ARGV[2] == 'chisq'
       tester = ChiSquaredTest.new
     elsif ARGV[2] == 'auto'
-      tester = nil #not written yet!
+      tester = AutoCorrelator.new
     else
       PrngTestSuite.usage "Error: missing or invalid test parameter."
     end

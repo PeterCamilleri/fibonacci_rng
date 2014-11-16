@@ -8,4 +8,9 @@ class InternalRng
     rand(sides)
   end
 
+  #Get a float!
+  def float
+    rand(0)
+  end
+
 end
