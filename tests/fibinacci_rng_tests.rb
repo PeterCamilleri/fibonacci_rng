@@ -25,7 +25,6 @@ class CoreTester < MiniTest::Unit::TestCase
     100.times do
       assert((0...6) === prng.dice(6))
     end
-
   end
 
   def test_that_it_creates_bytes
@@ -34,7 +33,6 @@ class CoreTester < MiniTest::Unit::TestCase
     100.times do
       assert((0...256) === prng.byte)
     end
-
   end
 
   def test_that_it_creates_words
@@ -59,7 +57,6 @@ class CoreTester < MiniTest::Unit::TestCase
     end
 
     assert(buffa != buffb)
-
   end
 
   def test_that_it_makes_repeatable_sequnces
@@ -75,7 +72,6 @@ class CoreTester < MiniTest::Unit::TestCase
     end
 
     assert(buffa == buffb)
-
   end
 
 end
