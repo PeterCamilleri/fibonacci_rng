@@ -21,7 +21,7 @@ module PrngTestSuite
     puts "Where:"
     puts "  <locn>  fib code location, either 'gem' or 'local'"
     puts "  <gen>   select a generator, either 'fib' or 'int'"
-    puts "  <test>  select a test, either 'chisq' or 'auto'"
+    puts "  <test>  select a test, either 'chisq', 'auto', or 'scatter'"
     puts "  <max>   the number of bins to test    (2..65535)"
     puts "  <count> the number of samples to test (1..1000000)"
     puts
@@ -44,6 +44,7 @@ end
 require_relative 'tools/internal_rng'
 require_relative 'tools/chi_squared'
 require_relative 'tools/auto_corr'
+require_relative 'tools/scatter_plot'
 
 module PrngTestSuite
 
@@ -60,11 +61,13 @@ module PrngTestSuite
       tester = ChiSquaredTest.new
     elsif ARGV[2] == 'auto'
       tester = AutoCorrelator.new
+    elsif ARGV[2] == 'scatter'
+      tester = ScatterPlot.new
     else
       PrngTestSuite.usage "Error: missing or invalid test parameter."
     end
 
-    unless (2..65535) === (max = ARGV[3].to_i)
+    unless (2..65536) === (max = ARGV[3].to_i)
       PrngTestSuite.usage "Error: missing or invalid max parameter."
     end
 
