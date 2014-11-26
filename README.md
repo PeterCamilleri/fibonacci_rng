@@ -31,7 +31,11 @@ Then in an appropriate place in the code:
 
 Where depth is an optional integer value between 3 and are you kidding and
 the seed value is a number or string or other object that has a repeatable
-value. To get some data out here are some options:
+value. You can also get a "random" generator of the default depth by using:
+
+    @my_rng = FibonacciRng.new
+
+To get some data out here are some options:
 
     @my_rng.dice(100)     # A "random" integer between 0 and 99
     @my_rng.byte          # A "random" integer between 0 and 255
