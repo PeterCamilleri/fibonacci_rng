@@ -41,7 +41,6 @@ class CoreTester < MiniTest::Unit::TestCase
     100.times do
       assert((0...65536) === prng.word)
     end
-
   end
 
   def test_that_it_creates_floats
@@ -51,7 +50,34 @@ class CoreTester < MiniTest::Unit::TestCase
       value = prng.float
       assert((value >= 0.0) && (value < 1.0))
     end
+  end
 
+  def test_compatible_global_dice_rolls
+    100.times do
+      assert((0...6) === FibonacciRng.rand(6))
+    end
+  end
+
+  def test_compatible_global_dice_rolls_range
+    100.times do
+      assert((0...6) === FibonacciRng.rand(0...6))
+    end
+  end
+
+  def test_compatible_global_floats
+    100.times do
+      value = FibonacciRng.rand(0)
+      assert((value >= 0.0) && (value < 1.0))
+    end
+  end
+
+  def test_random_string
+    prng = FibonacciRng.new
+
+    rs = prng.bytes(10)
+
+    assert(rs.is_a?(String))
+    assert_equal(10, rs.length)
   end
 
   def test_that_it_makes_unique_sequnces
@@ -70,8 +96,8 @@ class CoreTester < MiniTest::Unit::TestCase
   end
 
   def test_that_it_makes_repeatable_sequnces
-    prnga = FibonacciRng.new(8, 0)
-    prngb = FibonacciRng.new(8, 0)
+    prnga = FibonacciRng.new(0)
+    prngb = FibonacciRng.new(0)
 
     buffa = []
     buffb = []
@@ -83,5 +109,4 @@ class CoreTester < MiniTest::Unit::TestCase
 
     assert(buffa == buffb)
   end
-
 end

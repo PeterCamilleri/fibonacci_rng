@@ -9,8 +9,24 @@ class FibonacciRng
   @tickle = '0'
 
   #Create the default seed string.
-  def self.seed
+  def self.new_seed
     Time.now.to_s + @tickle.succ!
+  end
+
+  #Get a random number from the class based generator. This exists only
+  #for compatibility purposes. It is far better to create instances of
+  #generators than to use a shared, global one.
+  def self.rand(max=0)
+    (@hidden ||= FibonacciRng.new).rand(max)
+  end
+
+  #Initialize the class based generator. This exists only
+  #for compatibility purposes. It is far better to create instances of
+  #generators than to use a shared, global one.
+  def self.srand(seed=FibonacciRng.new_seed, depth=8)
+    old = (@hidden && @hidden.seed)
+    @hidden = FibonacciRng.new(seed, depth)
+    old
   end
 
   CHOP = 0x1FFFFFFF
@@ -21,19 +37,37 @@ class FibonacciRng
   #An accessor for the depth!
   attr_reader :depth
 
+  #An accessor for the seed value!
+  attr_reader :seed
+
   #Initialize the PRN generator
-  def initialize(depth=8, seed=FibonacciRng.seed)
+  def initialize(seed=FibonacciRng.new_seed, depth=8)
     fail "Invalid depth value (3..30)." unless (3..30) === depth
     @depth = depth
-    reseed(seed)
+    srand(seed)
   end
 
   #Set up a new seed value
-  def reseed(seed=FibonacciRng.seed)
+  def srand(seed=FibonacciRng.new_seed)
+    @seed = seed
     @buffer = Array.new(@depth+2, 0)
     seedsrc = (seed.to_s + seed.class.to_s + 'Leonardo Pisano').each_byte.cycle
     indxsrc = (0...depth).cycle
     do_reseed(indxsrc, seedsrc)
+  end
+
+  #A (mostly) compatible access point for random numbers.
+  def rand(max=0)
+    @hidden ||= FibonacciRng.new
+
+    if max.is_a?(Range)
+      min = max.min
+      @hidden.dice(1 + max.max - min) + min
+    elsif max == 0
+      @hidden.float
+    else
+      @hidden.dice(max.to_i)
+    end
   end
 
   #Roll a dice.
@@ -42,15 +76,22 @@ class FibonacciRng
 
     begin
       do_spin
-    end until @buffer[0] < limit
+    end until (value = @buffer[0]) < limit
 
-    @buffer[0] % sides
+    value % sides
   end
 
   #Get a pseudo random byte
   def byte
     do_spin
     @buffer[0] & BYTE
+  end
+
+  #Get a string of random bytes
+  def bytes(length)
+    result = ""
+    length.times {result << byte.chr}
+    result
   end
 
   #Get a pseudo random word
