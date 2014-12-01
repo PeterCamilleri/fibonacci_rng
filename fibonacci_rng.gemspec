@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = FibonacciRng::VERSION
   spec.authors       = ["Peter Camilleri"]
   spec.email         = ["peter.c.camilleri@gmail.com"]
+  spec.homepage      = "http://teuthida-technologies.com/"
   spec.description   = "A Fibonacci inspired pseudo random number generator. Just try and prove that it sucks! ;-)"
   spec.summary       = "A Fibonacci inspired pseudo random number generator."
-  spec.homepage      = ""
   spec.license       = "MIT"
 
   raw_list = `git ls-files`.split($/)
@@ -27,5 +27,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency 'reek', "~> 1.3.8"
   spec.add_development_dependency 'minitest', "~> 4.7.5"
-
+  spec.add_development_dependency 'rdoc', "~> 4.0.1"
 end
