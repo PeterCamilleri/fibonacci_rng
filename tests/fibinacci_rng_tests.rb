@@ -1,23 +1,15 @@
 # coding: utf-8
 
 require_relative '../lib/fibonacci_rng'
+gem              'minitest'
 require          'minitest/autorun'
+require          'minitest_visible'
 
 #Test the monkey patches applied to the Object class.
-class CoreTester < MiniTest::Unit::TestCase
+class CoreTester < Minitest::Test
 
-  #Special initialize to track rake progress.
-  def initialize(*all)
-    $do_this_only_one_time = "" unless defined? $do_this_only_one_time
-
-    if $do_this_only_one_time != __FILE__
-      puts
-      puts "Running test file: #{File.split(__FILE__)[1]}"
-      $do_this_only_one_time = __FILE__
-    end
-
-    super(*all)
-  end
+  #Track mini-test progress.
+  include MinitestVisible
 
   def test_that_it_creates_dice_rolls
     prng = FibonacciRng.new
