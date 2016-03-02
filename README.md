@@ -29,9 +29,10 @@ Then in an appropriate place in the code:
 
     @my_rng = FibonacciRng.new(depth, seed_value)
 
-Where depth is an optional integer value between 3 and are you kidding and
+Where depth is an optional integer value between 3 and "are you kidding" and
 the seed value is a number or string or other object that has a repeatable
-value. You can also get a "random" generator of the default depth by using:
+value. You can also get a "random" generator of the default depth (8) and a
+randomized seed by using:
 
     @my_rng = FibonacciRng.new
 
