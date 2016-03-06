@@ -63,7 +63,7 @@ class FibonacciRng
     if max.is_a?(Range)
       min = max.min
       @hidden.dice(1 + max.max - min) + min
-    elsif max == 0
+    elsif max.zero?
       @hidden.float
     else
       @hidden.dice(max.to_i)
