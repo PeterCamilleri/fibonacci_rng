@@ -5,17 +5,11 @@ require "fibonacci_rng/version"
 #The class of Fibonacci inspired random number generators.
 class FibonacciRng
 
-  #A class instance variable to hold the tickle value.
-  @tickle = '0'
-
-  #Create the default seed string.
-  def self.new_seed
-    Time.now.to_s + @tickle.succ!
-  end
-
   #Get a random number from the class based generator. This exists only
   #for compatibility purposes. It is far better to create instances of
   #generators than to use a shared, global one.
+  #<br>Returns
+  #* The computed pseudo-random value.
   def self.rand(max=0)
     (@hidden ||= FibonacciRng.new).rand(max)
   end
@@ -23,6 +17,8 @@ class FibonacciRng
   #Initialize the class based generator. This exists only
   #for compatibility purposes. It is far better to create instances of
   #generators than to use a shared, global one.
+  #<br>Returns
+  #* The old seed value.
   def self.srand(seed=FibonacciRng.new_seed, depth=8)
     old = (@hidden && @hidden.seed)
     @hidden = FibonacciRng.new(seed, depth)
@@ -34,10 +30,10 @@ class FibonacciRng
   WORD = 0xFFFF
   BASE = (CHOP+1).to_f
 
-  #An accessor for the depth!
+  #The depth of the Fibonacci array.
   attr_reader :depth
 
-  #An accessor for the seed value!
+  #The seed value used by this generator.
   attr_reader :seed
 
   #Initialize the PRN generator
@@ -58,15 +54,13 @@ class FibonacciRng
 
   #A (mostly) compatible access point for random numbers.
   def rand(max=0)
-    @hidden ||= FibonacciRng.new
-
     if max.is_a?(Range)
       min = max.min
-      @hidden.dice(1 + max.max - min) + min
+      dice(1 + max.max - min) + min
     elsif max.zero?
-      @hidden.float
+      float
     else
-      @hidden.dice(max.to_i)
+      dice(max.to_i)
     end
   end
 
@@ -114,6 +108,15 @@ class FibonacciRng
   end
 
   private
+
+  #A class instance variable to hold the tickle value.
+  @tickle = '0'
+
+  #Create the default seed string.
+  def self.new_seed
+    Time.now.to_s + @tickle.succ!
+  end
+
   #Do the work of reseeding the PRNG
   def do_reseed(indxsrc, seedsrc)
     1024.times do
