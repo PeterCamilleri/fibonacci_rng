@@ -15,3 +15,10 @@ desc "Run a scan for smelly code!"
 task :reek do |t|
   `reek --no-color lib > reek.txt`
 end
+
+desc "What version of fOOrth is this?"
+task :vers do |t|
+  puts
+  puts "Fibonacci random number generator version = #{FibonacciRng::VERSION}"
+end
+

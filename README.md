@@ -53,6 +53,18 @@ and also available
 If more than one stream of numbers is required, it is best to use multiple
 instances of FibonacciRng objects rather than rely on one.
 
+### Hashing
+
+As more as an experiment than anything else, it is also possible to use
+the generator as a primitive hash generator. To do so, create a new
+generator with a salt value, append data to it, and the retrieve the results
+as a (big) number of or a string.
+
+    fib = FibonacciRng.new('salt')
+    fib << "The quick brown fox jumps over the lazy dog."
+    puts fib.hash_string
+    #displays: j5jqhk7ntrze02icv38gj28efa2qrctr6mi5ejbr2p4nj
+
 ## Contributing
 
 1. Fork it

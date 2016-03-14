@@ -6,7 +6,7 @@ require          'minitest/autorun'
 require          'minitest_visible'
 
 #Test the monkey patches applied to the Object class.
-class CoreTester < Minitest::Test
+class FibonacciRngTester < Minitest::Test
 
   #Track mini-test progress.
   include MinitestVisible

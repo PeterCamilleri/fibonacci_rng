@@ -43,6 +43,18 @@ class FibonacciRng
     srand(seed)
   end
 
+  #Get the value of the rng state as a number.
+  def hash_value
+    result = 0
+    @buffer[0...@depth].each {|value| result = (result << 29) + value }
+    result
+  end
+
+  #Get the value of the rng state as a string.
+  def hash_string
+    hash_value.to_s(36)
+  end
+
   #Set up a new seed value
   def srand(seed=FibonacciRng.new_seed)
     @seed = seed
@@ -103,6 +115,16 @@ class FibonacciRng
   #Cycle through the PRNG count times.
   def spin(count=1)
     count.times do
+      do_spin
+    end
+  end
+
+  #Append data to the generator
+  def <<(data)
+    data.to_s.each_byte.each do |value|
+      index = @buffer[0] % @depth
+      do_spin
+      @buffer[index] += value
       do_spin
     end
   end
