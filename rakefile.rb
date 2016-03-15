@@ -4,7 +4,7 @@
 require "bundler/gem_tasks"
 require 'rake/testtask'
 
-#Run the fOOrth unit test suite.
+#Run the Fibonacci unit test suite.
 Rake::TestTask.new do |t|
   #List out all the test files.
   t.test_files = FileList['tests/**/*.rb']
@@ -16,7 +16,7 @@ task :reek do |t|
   `reek --no-color lib > reek.txt`
 end
 
-desc "What version of fOOrth is this?"
+desc "What version of the Fibonacci is this?"
 task :vers do |t|
   puts
   puts "Fibonacci random number generator version = #{FibonacciRng::VERSION}"
