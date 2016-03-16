@@ -40,8 +40,17 @@ seed. Here is an overview of the available options.
 
 ```ruby
 @my_rng = FibonacciRng.new                            # Random seed, depth = 8
+```
+
+```ruby
 @my_rng = FibonacciRng.new(seed)                      # Specified seed, depth = 8
+```
+
+```ruby
 @my_rng = FibonacciRng.new(seed, 12)                  # Specified seed, depth = 12
+```
+
+```ruby
 @my_rng = FibonacciRng.new(FibonacciRng.new_seed, 12) # Random seed, depth = 12
 
 ```
@@ -87,12 +96,24 @@ generator used to create it. This is about 5.5 characters per unit of depth.
 ### Salting
 
 Another (more practical) use for the Fibonacci generator is the creation of
-salting strings for use in more capable hashing schemes. Here are some possible
+salting strings for use in more capable hashing schemes. Here are three possible
 ways that this can be done:
 
 ```ruby
 salt_string = FibonacciRng.new.hash_string
-salt_string = FibonacciRng.new(FibonacciRng.new_seed, 12).hash_string()
+```
+
+```ruby
+salt_string = FibonacciRng.new(FibonacciRng.new_seed, 12).hash_string
+```
+
+```ruby
+@generator = FibonacciRng.new
+
+# Much intervening code omitted.
+
+@generator << Time.now.to_s  # Note that unique time values are NOT needed.
+salt_string = @generator.hash_string
 ```
 Each time any of these is run, a different salt string will be generated.
 
