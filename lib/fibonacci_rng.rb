@@ -38,7 +38,7 @@ class FibonacciRng
 
   #Initialize the PRN generator
   def initialize(seed=FibonacciRng.new_seed, depth=8)
-    fail "Invalid depth value (3..30)." unless (3..30) === depth
+    fail "Invalid depth value (2..99)." unless (2..99) === depth
     @depth = depth
     srand(seed)
   end
@@ -134,14 +134,17 @@ class FibonacciRng
   #A class instance variable to hold the tickle value.
   @tickle = '0'
 
+  #A synchronizer for access to the @tickle variable
+  @sync = Mutex.new
+
   #Create the default seed string.
   def self.new_seed
-    Time.now.to_s + @tickle.succ!
+    @sync.synchronize {Time.now.to_s + @tickle.succ!}
   end
 
   #Do the work of reseeding the PRNG
   def do_reseed(indxsrc, seedsrc)
-    1024.times do
+    (128*@depth).times do
       @buffer[indxsrc.next] += seedsrc.next
       do_spin
     end

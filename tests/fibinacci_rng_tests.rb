@@ -11,6 +11,12 @@ class FibonacciRngTester < Minitest::Test
   #Track mini-test progress.
   include MinitestVisible
 
+
+  def test_that_rejects_bad_parms
+    assert_raises { FibonacciRng.new('seed', 1) }
+    assert_raises { FibonacciRng.new('seed', 65536) }
+  end
+
   def test_that_it_creates_dice_rolls
     prng = FibonacciRng.new
 
@@ -101,4 +107,15 @@ class FibonacciRngTester < Minitest::Test
 
     assert(buffa == buffb)
   end
+
+  def test_that_it_creates_unique_seeds
+    result = []
+    10_000.times do
+      result << FibonacciRng.new_seed
+    end
+
+    result.uniq!
+    assert_equal(10_000, result.length)
+  end
+
 end
