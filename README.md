@@ -39,21 +39,21 @@ also get a "random" generator of the default depth (8) and a randomized
 seed. Here is an overview of the available options.
 
 ```ruby
+#Method #1
 @my_rng = FibonacciRng.new                            # Random seed, depth = 8
-```
 
-```ruby
+#Method #2
 @my_rng = FibonacciRng.new(seed)                      # Specified seed, depth = 8
-```
 
-```ruby
+#Method #3
 @my_rng = FibonacciRng.new(seed, 12)                  # Specified seed, depth = 12
-```
 
-```ruby
+#Method #4
 @my_rng = FibonacciRng.new(FibonacciRng.new_seed, 12) # Random seed, depth = 12
 
 ```
+
+#### Generating Pseudo Random Data
 
 To get some data out here are some options:
 
@@ -64,7 +64,7 @@ To get some data out here are some options:
 @my_rng.float         # A "random" float between 0 and less than 1.
 ```
 
-and also available
+and also available are these helpful methods:
 
 ```ruby
 @my_rng.reseed(value) # Reseed the sequence with the new value.
@@ -77,7 +77,7 @@ If more than one stream of numbers is required, it is best to use multiple
 instances of FibonacciRng objects rather than rely on one. This will help avoid
 the two streams of data being correlated.
 
-### Hashing
+#### Hashing
 
 As more as an experiment than anything else, it is also possible to use
 the generator as a primitive hash generator. To do so, create a new
@@ -93,28 +93,34 @@ puts fib.hash_string
 Note that the length of the hash string is a function of the depth of the
 generator used to create it. This is about 5.5 characters per unit of depth.
 
-### Salting
+#### Salting
 
 Another (more practical) use for the Fibonacci generator is the creation of
-salting strings for use in more capable hashing schemes. Here are three possible
+salting strings for use in more capable hashing schemes. Here are four possible
 ways that this can be done:
 
 ```ruby
-salt_string = FibonacciRng.new.hash_string
-```
+#Method #1
+salt_string = FibonacciRng.new.hash_string  #Thread safe.
 
-```ruby
-salt_string = FibonacciRng.new(FibonacciRng.new_seed, 12).hash_string
-```
+#Method #2
+salt_string = FibonacciRng.new(FibonacciRng.new_seed, 12).hash_string  #Thread safe.
 
-```ruby
-@generator = FibonacciRng.new
-
+#Method #3
+Thread.current[:salter] = FibonacciRng.new   #Need a separate generator for each thread.
 # Much intervening code omitted.
+salter = Thread.current[:salter]
+salter << Time.now.to_s  # Note that unique time values are NOT needed.
+salt_string = salter.hash_string
 
-@generator << Time.now.to_s  # Note that unique time values are NOT needed.
-salt_string = @generator.hash_string
+#Method #4
+Thread.current[:salter] = FibonacciRng.new   #Need a separate generator for each thread.
+# Much intervening code omitted.
+salter = Thread.current[:salter]
+salter.spin
+salt_string = salter.hash_string
 ```
+
 Each time any of these is run, a different salt string will be generated.
 
 ## Contributing
@@ -124,3 +130,11 @@ Each time any of these is run, a different salt string will be generated.
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+#### Plan B
+
+Go to the GitHub repository and raise an issue calling attention to some
+aspect that could use some TLC or a suggestion or an idea. Apply labels
+to the issue that match the point you are trying to make. Then follow
+your issue and keep up-to-date as it is worked on. All input are greatly
+appreciated.
