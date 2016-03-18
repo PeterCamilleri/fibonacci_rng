@@ -11,6 +11,19 @@ class FibonacciRngTester < Minitest::Test
   #Track mini-test progress.
   include MinitestVisible
 
+  def test_how_we_build_generators
+    gen = FibonacciRng.new
+    assert_equal(8, gen.depth)
+    assert_equal(String, gen.seed.class)
+
+    gen = FibonacciRng.new('seed')
+    assert_equal(8, gen.depth)
+    assert_equal('seed', gen.seed)
+
+    gen = FibonacciRng.new('seed', 12)
+    assert_equal(12, gen.depth)
+    assert_equal('seed', gen.seed)
+  end
 
   def test_that_rejects_bad_parms
     assert_raises { FibonacciRng.new('seed', 1) }
