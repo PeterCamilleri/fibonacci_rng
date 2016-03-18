@@ -1,11 +1,18 @@
 # FibonacciRng
 
 This gem implements a random number generator inspired by the famous Fibonacci
-number sequence. This is meant to serve as an example of a lesser or poorly
-implemented random number generator. Until now, the linear congruential and
-middle squares generators have been picked on as poor, so I felt that a new
-contender was required. Proving that this is indeed a poor RNG is left as an
-exercise for the reader!
+number sequence. So far, this generator has performed quite well when compared
+to the built-in Ruby random number generator when tested with:
+
+* A chi-squared test
+* An auto-correlation test
+* An X/Y scatter graph test
+
+At this time I lack the mathematical skill to go beyond these rudimentary
+measures but they are enough to qualify this code for "light" duties.
+
+Proving that this is indeed a good (or poor) RNG is left as an exercise for
+the reader! Hopefully one with greater knowledge of statistics than I.
 
 ## Installation
 
@@ -52,6 +59,20 @@ seed. Here is an overview of the available options.
 @my_rng = FibonacciRng.new(FibonacciRng.new_seed, 12) # Random seed, depth = 12
 
 ```
+In addition, keyword arguments are emulated (as of Version 0.3.1) so these
+options also are available:
+
+```ruby
+#Method #5
+@my_rng = FibonacciRng.new(seed: seed)                # Specified seed, depth = 8
+
+#Method #6
+@my_rng = FibonacciRng.new(seed: seed, depth: 12)     # Specified seed, depth = 12
+
+#Method #7
+@my_rng = FibonacciRng.new(depth: 12)                 # Random seed, depth = 12
+```
+Note: Mixing positional and keyword arguments will not, in general, work.
 
 #### Generating Pseudo Random Data
 
@@ -104,7 +125,7 @@ ways that this can be done:
 salt_string = FibonacciRng.new.hash_string  #Thread safe.
 
 #Method #2
-salt_string = FibonacciRng.new(FibonacciRng.new_seed, 12).hash_string  #Thread safe.
+salt_string = FibonacciRng.new(depth: 12).hash_string  #Thread safe.
 
 #Method #3
 Thread.current[:salter] = FibonacciRng.new   #Need a separate generator for each thread.

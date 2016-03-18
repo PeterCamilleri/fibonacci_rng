@@ -25,6 +25,24 @@ class FibonacciRngTester < Minitest::Test
     assert_equal('seed', gen.seed)
   end
 
+  def test_building_with_keywords
+    gen = FibonacciRng.new(seed: 'seed')
+    assert_equal(8, gen.depth)
+    assert_equal('seed', gen.seed)
+
+    gen = FibonacciRng.new(depth: 12)
+    assert_equal(12, gen.depth)
+    assert_equal(String, gen.seed.class)
+
+    gen = FibonacciRng.new(seed: 'seed', depth: 12)
+    assert_equal(12, gen.depth)
+    assert_equal('seed', gen.seed)
+
+    gen = FibonacciRng.new(depth: 12, seed: 'seed')
+    assert_equal(12, gen.depth)
+    assert_equal('seed', gen.seed)
+  end
+
   def test_that_rejects_bad_parms
     assert_raises { FibonacciRng.new('seed', 1) }
     assert_raises { FibonacciRng.new('seed', 65536) }

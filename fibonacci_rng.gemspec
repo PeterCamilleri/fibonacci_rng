@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Peter Camilleri"]
   spec.email         = ["peter.c.camilleri@gmail.com"]
   spec.homepage      = "http://teuthida-technologies.com/"
-  spec.description   = "A Fibonacci inspired pseudo random number generator. Just try and prove that it sucks! ;-)"
+  spec.description   = "A Fibonacci inspired pseudo random number generator. Suitable for light duties."
   spec.summary       = "A Fibonacci inspired pseudo random number generator."
   spec.license       = "MIT"
 

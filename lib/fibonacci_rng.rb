@@ -25,10 +25,11 @@ class FibonacciRng
     old
   end
 
-  CHOP = 0x1FFFFFFF
-  BYTE = 0xFF
-  WORD = 0xFFFF
-  BASE = (CHOP+1).to_f
+  CHOP   = 0x1FFFFFFF
+  BYTE   = 0xFF
+  WORD   = 0xFFFF
+  BASE   = (CHOP+1).to_f
+  DEPTHS = 2..99
 
   #The depth of the Fibonacci array.
   attr_reader :depth
@@ -37,9 +38,26 @@ class FibonacciRng
   attr_reader :seed
 
   #Initialize the PRN generator
-  def initialize(seed=FibonacciRng.new_seed, depth=8)
-    fail "Invalid depth value (2..99)." unless (2..99) === depth
-    @depth = depth
+  def initialize(arg_a=nil, arg_b=nil)
+    #Extract the parameters.
+    if arg_a.is_a?(Hash)
+      seed = arg_a[:seed]
+      @depth = arg_a[:depth]
+    else
+      seed = arg_a
+      @depth = arg_b
+    end
+
+    #Set up the default parameters if needed.
+    seed   ||= FibonacciRng.new_seed
+    @depth ||= 8
+
+    #Validate the depth.
+    unless DEPTHS === depth
+      fail "Invalid depth value #{depth}. Allowed values are #{DEPTHS}"
+    end
+
+    #Build the generator.
     srand(seed)
   end
 
@@ -144,7 +162,7 @@ class FibonacciRng
 
   #Do the work of reseeding the PRNG
   def do_reseed(indxsrc, seedsrc)
-    (128*@depth).times do
+    (32*@depth+768).times do
       @buffer[indxsrc.next] += seedsrc.next
       do_spin
     end
