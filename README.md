@@ -59,8 +59,8 @@ seed. Here is an overview of the available options.
 @my_rng = FibonacciRng.new(FibonacciRng.new_seed, 12) # Random seed, depth = 12
 
 ```
-In addition, keyword arguments are emulated (as of Version 0.3.1) so these
-options also are available:
+In addition, keyword arguments are emulated (as of Version 0.4.0) so these
+additional options also are available:
 
 ```ruby
 #Method #5
@@ -76,7 +76,17 @@ Note: Mixing positional and keyword arguments will not, in general, work.
 
 #### Generating Pseudo Random Data
 
-To get some data out here are some options:
+The Fibonacci generator class supports the classical rand method that emulates
+the behavior of the standard generator. It works like this:
+
+```ruby
+@my_rng.rand          # A "random" float between 0.0 and less than 1.
+@my_rng.rand(0)       # A "random" float between 0.0 and less than 1.
+@my_rng.rand(100)     # A "random" integer between 0 and 99
+@my_rng.rand(1..6)    # A "random" integer between 1 and 6
+```
+
+In addition, here are some other options:
 
 ```ruby
 @my_rng.dice(100)     # A "random" integer between 0 and 99
