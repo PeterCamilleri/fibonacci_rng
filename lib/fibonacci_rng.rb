@@ -139,12 +139,16 @@ class FibonacciRng
 
   #Append data to the generator
   def <<(data)
-    data.to_s.each_byte.each do |value|
+    str = data.to_s
+
+    str.each_byte.each do |value|
       index = @buffer[0] % @depth
       do_spin
       @buffer[index] += value
       do_spin
     end
+
+    do_spin if str.empty?
   end
 
   private

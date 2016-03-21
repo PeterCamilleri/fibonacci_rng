@@ -28,6 +28,12 @@ class FibonacciHasherTester < Minitest::Test
 
     str = 'j5jqhk7ntrze02icv38gj28efa2qrctr6mi5ejbr2p4nj'
     assert_equal(str, fib.hash_string)
+
+    fib << nil
+
+    refute_equal(str, fib.hash_string)
+    str = '1g5sgt443g4jcn3bfpiee1fkqoklo0i1ctkjro2vevpp0'
+    assert_equal(str, fib.hash_string)
   end
 
 end
