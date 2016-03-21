@@ -83,6 +83,8 @@ class FibonacciRng
   end
 
   #A (mostly) compatible access point for random numbers.
+  #<br>Endemic Code Smells
+  #* :reek:FeatureEnvy
   def rand(max=0)
     if max.is_a?(Range)
       min = max.min
@@ -139,13 +141,8 @@ class FibonacciRng
 
   #Append data to the generator
   def <<(data)
-    str = data.to_s
-
-    str.each_byte.each do |value|
-      index = @buffer[0] % @depth
-      do_spin
-      @buffer[index] += value
-      do_spin
+    (str = data.to_s).each_byte.each do |value|
+      add_value(value)
     end
 
     do_spin if str.empty?
@@ -180,6 +177,14 @@ class FibonacciRng
     (0...@depth).each do |idx|
       @buffer[idx] = (@buffer[idx+1] + (@buffer[idx+2] >> 1)) & CHOP
     end
+  end
+
+  #Add a value to the generator.
+  def add_value(value)
+    index = @buffer[0] % @depth
+    do_spin
+    @buffer[index] += value
+    do_spin
   end
 
 end
