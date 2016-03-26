@@ -93,6 +93,10 @@ In addition, here are some other options:
 @my_rng.byte          # A "random" integer between 0 and 255
 @my_rng.word          # A "random" integer between 0 and 65535
 @my_rng.float         # A "random" float between 0 and less than 1.
+@my_rng.string(10)    # A "random" string of 10 characters in length.
+
+# A "random" string of 10 characters in length from the string 'abcdefg'.
+@my_rng.string(10, 'abcdefg')
 ```
 
 and also available are these helpful methods:
