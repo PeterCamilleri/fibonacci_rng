@@ -53,4 +53,15 @@ class FibonacciRng
     @buffer[0].to_f / BASE
   end
 
+  #The printable seven bit ASCII characters.
+  ASCII_7_BIT = (' '..'~').to_a.join
+
+  #Create a random string
+  def string(length, set=ASCII_7_BIT)
+    set_length = set.length
+    result = ""
+    length.times {result << set[dice(set_length)]}
+    result
+  end
+
 end
