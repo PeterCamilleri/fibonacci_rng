@@ -154,6 +154,19 @@ salt_string = salter.hash_string
 
 Each time any of these is run, a different salt string will be generated.
 
+#### Deprecated Methods
+
+* bytes - This method would seem to generate an array of random bytes. It does
+not. That's why it's deprecated. Instead it generates a string with random
+byte code values. Plays havoc with encodings too. To get an array of len random
+byte values, try this example:
+
+```ruby
+generator = FibonacciRng.new
+random_bytes = Array.new(len) { generator.byte }
+```
+
+
 ## Contributing
 
 1. Fork it
