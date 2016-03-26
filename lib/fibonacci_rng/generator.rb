@@ -34,7 +34,7 @@ class FibonacciRng
     @buffer[0] & BYTE
   end
 
-  #Get a string of random bytes
+  #[Deprecated] Get a string of random bytes
   def bytes(length)
     result = ""
     length.times {result << byte.chr}
