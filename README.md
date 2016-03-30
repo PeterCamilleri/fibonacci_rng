@@ -170,6 +170,19 @@ generator = FibonacciRng.new
 random_bytes = Array.new(len) { generator.byte }
 ```
 
+## Theory of Operation
+
+The random number generator used in this gem is based on a modified, cyclic
+Fibonacci generator. This ring buffer design modifies the simple sequence so
+that it feeds back onto itself, which in turn gives the appearance of chaos.
+There is one further required modification however. Since the Fibonacci sequence
+uses additions, a mechanism for preventing zeros from "swamping" the data, is
+needed. This is accomplished by shifting one of the arguments to the right by
+one bit. The basic outline of the generational cycle operation, with depth of
+N is shown below:
+![The Cycle Operation](docs/cycle.png)
+<br>Note that the last two elements are copies of the first two elements before
+the array was transformed.
 
 ## Contributing
 
