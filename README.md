@@ -1,8 +1,9 @@
 # FibonacciRng
 
 This gem implements a random number generator inspired by the famous Fibonacci
-number sequence. So far, this generator has performed quite well when compared
-to the built-in Ruby random number generator when tested with:
+number sequence. To be specific, it is a normalized, cyclic Fibonacci pseudo
+random number generator. So far, this generator has performed quite well when
+compared to the built-in Ruby random number generator when tested with:
 
 * A chi-squared test
 * An auto-correlation test
@@ -211,6 +212,12 @@ systems, 29 bits is the largest value that meets this requirement.
 
 ## Contributing
 
+Creating a good pseudo random number generator is quite an undertaking. For
+this reason, any input is most welcomed. There are two basic plans by which
+this can be accomplished.
+
+#### Plan A
+
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
@@ -220,7 +227,4 @@ systems, 29 bits is the largest value that meets this requirement.
 #### Plan B
 
 Go to the GitHub repository and raise an issue calling attention to some
-aspect that could use some TLC or a suggestion or an idea. Apply labels
-to the issue that match the point you are trying to make. Then follow
-your issue and keep up-to-date as it is worked on. All input are greatly
-appreciated.
+aspect that could use some TLC or a suggestion or an idea.
