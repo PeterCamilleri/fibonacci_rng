@@ -181,8 +181,32 @@ needed. This is accomplished by shifting one of the arguments to the right by
 one bit. The basic outline of the generational cycle operation, with depth of
 N is shown below:
 ![The Cycle Operation](docs/cycle.png)
-<br>Note that the last two elements are copies of the first two elements before
+<br>Note:
+* The last two elements are copies of the first two elements before
 the array was transformed.
+* Not shown above for brevity, the result of each addition is masked with the
+value 0x1FFFFFFF before being stored. This masks off any data beyond the low
+29 bits.
+
+#### 29 bit Integers?
+
+The random number generator masks the data in the ring buffer to 29 bit,
+unsigned values. To understand this, it is first necessary to under why
+masking is needed at all, and secondly, why this was done at 29 bits.
+
+Masking at some level is required because it is needed to simulate the numeric
+overflow of more primitive systems of arithmetic. In most systems, when the
+limit of an integer is reached, overflow occurs with no error indication. Ruby
+does not permit this to occur. To avoid overflow, Ruby transparently converts
+from a simple integer (FIXNUM class) to a multiple-precision number
+(BIGNUM class). Masking the values forces the computation to overflow.
+
+So why 29 bits? Why not 32? or 64? The issue here is performance. Arithmetic
+with BIGNUM values is much slower than with FIXNUM values. Further, the
+conversion between FIXNUM and BIGNUM is also slow. The 29 bit size was
+chosen to ensure that all computations remain with FIXNUM values without
+ever reaching the threshold for the switch to BIGNUM values. In 32 bit Ruby
+systems, 29 bits is the largest value that meets this requirement.
 
 ## Contributing
 
