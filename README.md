@@ -199,7 +199,8 @@ overflow of more primitive systems of arithmetic. In most systems, when the
 limit of an integer is reached, overflow occurs with no error indication. Ruby
 does not permit this to occur. To avoid overflow, Ruby transparently converts
 from a simple integer (FIXNUM class) to a multiple-precision number
-(BIGNUM class). Masking the values forces the computation to overflow.
+(BIGNUM class). The random number generator *requires* the computations to
+overflow, so masking the results forces the computation to act as if they had.
 
 So why 29 bits? Why not 32? or 64? The issue here is performance. Arithmetic
 with BIGNUM values is much slower than with FIXNUM values. Further, the
