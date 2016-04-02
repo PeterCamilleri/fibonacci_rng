@@ -1,9 +1,9 @@
 # coding: utf-8
 
-#A Chi Squared tester
+#A Scatter Plot tester
 class ScatterPlot
 
-  #Run a chi squared test on the random number generator.
+  #Run a scatter plot test on the random number generator.
   def run(gen, max, count)
     puts "Starting test"
     bins = Array.new(max * 2, 0)
