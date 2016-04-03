@@ -9,8 +9,10 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Peter Camilleri"]
   spec.email         = ["peter.c.camilleri@gmail.com"]
   spec.homepage      = "http://teuthida-technologies.com/"
-  spec.description   = "A Fibonacci inspired pseudo random number generator. Suitable for light duties."
-  spec.summary       = "A Fibonacci inspired pseudo random number generator."
+  spec.description   = "A Fibonacci inspired pseudo random number generator. " +
+                       "[Updated] The algorithm is changed to use bit rotate " +
+                       "instead of bit shift."
+  spec.summary       = "[Updated] A Fibonacci inspired pseudo random number generator."
   spec.license       = "MIT"
 
   raw_list = `git ls-files`.split($/)
