@@ -178,11 +178,13 @@ Fibonacci generator. This ring buffer design modifies the simple sequence so
 that it feeds back onto itself, which in turn gives the appearance of chaos.
 There is one further required modification however. Since the Fibonacci sequence
 uses additions, a mechanism for preventing zeros from "swamping" the data, is
-needed. This is accomplished by shifting one of the arguments to the right by
+needed. This is accomplished by rotating one of the arguments to the right by
 one bit. The basic outline of the generational cycle operation, with depth of
 N is shown below:
 ![The Cycle Operation](docs/cycle.png)
 <br>Note:
+* The diagram shows shift right because there is no accepted symbol for
+rotate right.
 * The last two elements are copies of the first two elements before
 the array was transformed.
 * Not shown above for brevity, the result of each addition is masked with the
