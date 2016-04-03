@@ -10,6 +10,7 @@ require_relative "fibonacci_rng/version"
 class FibonacciRng
 
   CHOP   = 0x1FFFFFFF
+  TOP    = 0x10000000
   BYTE   = 0xFF
   WORD   = 0xFFFF
   BASE   = (CHOP+1).to_f

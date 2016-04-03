@@ -2,5 +2,5 @@
 
 #The class of Fibonacci inspired random number generators.
 class FibonacciRng
-  VERSION = "0.4.3"
+  VERSION = "1.0.0"
 end

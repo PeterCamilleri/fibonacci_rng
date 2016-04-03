@@ -152,9 +152,9 @@ class FibonacciRngTester < Minitest::Test
   def test_building_strings
     rng = FibonacciRng.new(0)
 
-    assert_equal('8{4y5+-N+c', rng.string(10))
-    assert_equal('1149049996', rng.string(10, '0123456789'))
-    assert_equal('tfes   oAy', rng.string(10, 'Always look on the bright side of life.'))
+    assert_equal("c}l'(q@g\\z", rng.string(10))
+    assert_equal('2727573312', rng.string(10, '0123456789'))
+    assert_equal('khto lk si', rng.string(10, 'Always look on the bright side of life.'))
   end
 
 end

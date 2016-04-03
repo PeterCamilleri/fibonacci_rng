@@ -18,7 +18,8 @@ class FibonacciRng
     @buffer[-1] = @buffer[1]
 
     (0...@depth).each do |idx|
-      @buffer[idx] = (@buffer[idx+1] + (@buffer[idx+2] >> 1)) & CHOP
+      tmp = @buffer[idx+2]
+      @buffer[idx] = (@buffer[idx+1] + ((tmp >> 1)|(tmp.odd? ? TOP : 0))) & CHOP
     end
   end
 

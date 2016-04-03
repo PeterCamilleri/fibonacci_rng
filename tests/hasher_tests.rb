@@ -14,10 +14,10 @@ class FibonacciHasherTester < Minitest::Test
   def test_that_it_can_be_read
     fib = FibonacciRng.new('salt')
 
-    val = 6419946790796257801349293118951652810485853780437507149800008378866623
+    val = 6283409396933018229308310224792996722092866776518016470611172637516158
     assert_equal(val, fib.hash_value)
 
-    str = 'le247zggdghf5vpcjbw2hrjf9eu8ql01wvl1fhv14bykf'
+    str = 'kxoj5k4rx6mqx1bmskx2133lrr21h8l2fs0zd1ver0ozi'
     assert_equal(str, fib.hash_string)
   end
 
@@ -26,13 +26,13 @@ class FibonacciHasherTester < Minitest::Test
 
     fib << "The quick brown fox jumps over the lazy dog."
 
-    str = 'j5jqhk7ntrze02icv38gj28efa2qrctr6mi5ejbr2p4nj'
+    str = 'hoeh45h3fqlrgnynud0rg3v8q62cadr9gmxx9lomzo3hi'
     assert_equal(str, fib.hash_string)
 
     fib << nil
 
     refute_equal(str, fib.hash_string)
-    str = '1g5sgt443g4jcn3bfpiee1fkqoklo0i1ctkjro2vevpp0'
+    str = '9anamtuoyhhb7v6s7y70m31mfsl2r2rbp4vki0vb9rnag'
     assert_equal(str, fib.hash_string)
   end
 
