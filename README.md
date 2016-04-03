@@ -182,9 +182,7 @@ needed. This is accomplished by rotating one of the arguments to the right by
 one bit. The basic outline of the generational cycle operation, with depth of
 N is shown below:
 ![The Cycle Operation](docs/cycle.png)
-<br>Note:
-* The diagram shows shift right because there is no accepted symbol for
-rotate right.
+<br>Notes:
 * The last two elements are copies of the first two elements before
 the array was transformed.
 * Not shown above for brevity, the result of each addition is masked with the
@@ -211,6 +209,36 @@ conversion between FIXNUM and BIGNUM is also slow. The 29 bit size was
 chosen to ensure that all computations remain with FIXNUM values without
 ever reaching the threshold for the switch to BIGNUM values. In 32 bit Ruby
 systems, 29 bits is the largest value that meets this requirement.
+
+#### Code
+
+Enough with all these words and pictures. The best way to gain insight into
+ruby code is to study ruby code! What follows is the critical snippet of code
+that makes this random number generator spin:
+
+```ruby
+private
+
+#Cycle through the PRNG once.
+def do_spin
+  @buffer[-2] = @buffer[0]
+  @buffer[-1] = @buffer[1]
+
+  (0...@depth).each do |idx|
+    tmp = @buffer[idx+2]
+    @buffer[idx] = (@buffer[idx+1] + ((tmp >> 1)|(tmp.odd? ? TOP : 0))) & CHOP
+  end
+end
+
+```
+The above is found in the spinner.rb file. For completeness of understanding,
+the following constants are defined in the fibonacci_rng.rb file:
+
+```ruby
+CHOP = 0x1FFFFFFF
+TOP  = 0x10000000
+
+```
 
 ## Contributing
 
