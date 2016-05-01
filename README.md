@@ -159,17 +159,14 @@ salt_string = salter.hash_string
 
 Each time any of these is run, a different salt string will be generated.
 
-#### Deprecated Methods
+#### Methods back in Good Standing
 
 * bytes - This method would seem to generate an array of random bytes. It does
-not. That's why it's deprecated. Instead it generates a string with random
-byte code values. Plays havoc with encodings too. To get an array of len random
-byte values, try this example:
-
-```ruby
-generator = FibonacciRng.new
-random_bytes = Array.new(len) { generator.byte }
-```
+not. However, it doesn't matter either. The bytes method was added to improve
+interoperability with the standard Random class. Thus deprecating it was a
+mistake. This note serves to announce that the bytes method is not going away.
+The source code will say it is deprecated until the next code update, but that
+comment is in error.
 
 ## Theory of Operation
 
