@@ -29,6 +29,8 @@ Or install it yourself as:
 
     $ gem install fibonacci_rng
 
+The format_engine gem itself is found at: ( https://rubygems.org/gems/fibonacci_rng )
+
 ## Usage
 
 ```ruby
