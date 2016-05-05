@@ -31,6 +31,10 @@ Or install it yourself as:
 
 The fibonacci_rng gem itself is found at: ( https://rubygems.org/gems/fibonacci_rng )
 
+A C++ version of this generator also exists and may be found at
+( https://github.com/PeterCamilleri/Fibonacci_CPP )
+
+
 ## Usage
 
 ```ruby
