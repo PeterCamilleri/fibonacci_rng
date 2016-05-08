@@ -48,11 +48,12 @@ Then in an appropriate place in the code:
 ```
 
 Where:
-* depth is an optional integer value between 2 and 256
-* seed a number or string or other object that has a repeatable value.
+* depth is an optional integer value between 2 and 256. Defaults to 8.
+* seed is an optional number or string or other object that has a repeatable
+value and responds to the to_s method. Defaults to a value derived from system
+entropy.
 
-By default you get a "random" generator of the default depth (8) and a
-randomized seed. Here is an overview of the available options.
+Here is an overview of the available options.
 
 ```ruby
 #Method #1
@@ -71,8 +72,9 @@ randomized seed. Here is an overview of the available options.
 In addition, keyword arguments are emulated (as of Version 0.4.0) so these
 additional options also are available:
 
-* depth: value
-* seed: value
+* depth: value -- an integer value between 2 and 256. Defaults to 8.
+* seed: value -- a number or string or other object that has a repeatable value and
+responds to the to_s method. Defaults to a value derived from system entropy.
 
 The following are examples of constructors with keyword arguments.
 
