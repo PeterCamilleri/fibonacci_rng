@@ -44,7 +44,7 @@ require 'fibonacci_rng'
 Then in an appropriate place in the code:
 
 ```ruby
-@my_rng = FibonacciRng.new(depth, seed_value)
+@my_rng = FibonacciRng.new(depth, seed)
 ```
 
 Where:
