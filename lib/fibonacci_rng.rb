@@ -14,7 +14,7 @@ class FibonacciRng
   BYTE   = 0xFF
   WORD   = 0xFFFF
   BASE   = (CHOP+1).to_f
-  DEPTHS = 2..99
+  DEPTHS = 2..256
 
   #The depth of the Fibonacci array.
   attr_reader :depth
