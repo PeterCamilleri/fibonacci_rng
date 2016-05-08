@@ -47,10 +47,12 @@ Then in an appropriate place in the code:
 @my_rng = FibonacciRng.new(depth, seed_value)
 ```
 
-Where depth is an optional integer value between 2 and 256 and the seed value
-is a number or string or other object that has a repeatable value. You can
-also get a "random" generator of the default depth (8) and a randomized
-seed. Here is an overview of the available options.
+Where:
+* depth is an optional integer value between 2 and 256
+* seed a number or string or other object that has a repeatable value.
+
+By default you get a "random" generator of the default depth (8) and a
+randomized seed. Here is an overview of the available options.
 
 ```ruby
 #Method #1
@@ -69,6 +71,11 @@ seed. Here is an overview of the available options.
 In addition, keyword arguments are emulated (as of Version 0.4.0) so these
 additional options also are available:
 
+* depth: value
+* seed: value
+
+The following are examples of constructors with keyword arguments.
+
 ```ruby
 #Method #5
 @my_rng = FibonacciRng.new(seed: seed)                # Specified seed, depth = 8
@@ -79,7 +86,8 @@ additional options also are available:
 #Method #7
 @my_rng = FibonacciRng.new(depth: 12)                 # Random seed, depth = 12
 ```
-Note: Mixing positional and keyword arguments will not, in general, work.
+Note: Mixing positional and keyword arguments will not, in general, work. So
+don't do it!
 
 #### Generating Pseudo Random Data
 
