@@ -60,10 +60,10 @@ Here is an overview of the available options.
 @my_rng = FibonacciRng.new                            # Random seed, depth = 8
 
 #Method #2
-@my_rng = FibonacciRng.new(seed)                      # Specified seed, depth = 8
+@my_rng = FibonacciRng.new('seed')                    # Specified seed = 'seed', depth = 8
 
 #Method #3
-@my_rng = FibonacciRng.new(seed, 12)                  # Specified seed, depth = 12
+@my_rng = FibonacciRng.new('seed', 12)                # Specified seed = 'seed', depth = 12
 
 #Method #4
 @my_rng = FibonacciRng.new(FibonacciRng.new_seed, 12) # Random seed, depth = 12
@@ -80,10 +80,10 @@ The following are examples of constructors with keyword arguments.
 
 ```ruby
 #Method #5
-@my_rng = FibonacciRng.new(seed: seed)                # Specified seed, depth = 8
+@my_rng = FibonacciRng.new(seed: 'seed')              # Specified seed = 'seed', depth = 8
 
 #Method #6
-@my_rng = FibonacciRng.new(seed: seed, depth: 12)     # Specified seed, depth = 12
+@my_rng = FibonacciRng.new(seed: 'seed', depth: 12)   # Specified seed = 'seed', depth = 12
 
 #Method #7
 @my_rng = FibonacciRng.new(depth: 12)                 # Random seed, depth = 12
