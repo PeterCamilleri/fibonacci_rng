@@ -75,6 +75,9 @@ additional options also are available:
 * depth: value -- an integer value between 2 and 256. Defaults to 8.
 * seed: value -- a number or string or other object that has a repeatable value and
 responds to the to_s method. Defaults to a value derived from system entropy.
+* init: value -- the number of initial training cycles used to seed the
+generator. The allowed range is 1 to 1,000,000. By default the init value is
+32*depth+768. This setting is only available with keyword arguments.
 
 The following are examples of constructors with keyword arguments.
 
@@ -87,6 +90,10 @@ The following are examples of constructors with keyword arguments.
 
 #Method #7
 @my_rng = FibonacciRng.new(depth: 12)                 # Random seed, depth = 12
+
+#Method #8
+@my_rng = FibonacciRng.new(seed: 'seed', init: 2048)  # Specified seed = 'seed' with 2048 passes.
+
 ```
 Note: Mixing positional and keyword arguments will not, in general, work. So
 don't do it!

@@ -41,6 +41,10 @@ class FibonacciRngTester < Minitest::Test
     gen = FibonacciRng.new(depth: 12, seed: 'seed')
     assert_equal(12, gen.depth)
     assert_equal('seed', gen.seed)
+
+    gen = FibonacciRng.new(seed: 'seed', init: 2048)
+    assert_equal('seed', gen.seed)
+    assert_equal(2048, gen.init)
   end
 
   def test_that_rejects_bad_parms

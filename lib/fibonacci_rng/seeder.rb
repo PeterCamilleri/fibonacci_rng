@@ -27,7 +27,7 @@ class FibonacciRng
 
   #Do the work of reseeding the PRNG
   def do_reseed(indxsrc, seedsrc)
-    (32*@depth+768).times do
+    @init.times do
       @buffer[indxsrc.next] += seedsrc.next
       do_spin
     end

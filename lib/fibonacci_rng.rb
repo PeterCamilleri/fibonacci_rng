@@ -15,6 +15,7 @@ class FibonacciRng
   WORD   = 0xFFFF
   BASE   = (CHOP+1).to_f
   DEPTHS = 2..256
+  INITS  = 1..1_000_000
 
   #The depth of the Fibonacci array.
   attr_reader :depth
@@ -22,12 +23,16 @@ class FibonacciRng
   #The seed value used by this generator.
   attr_reader :seed
 
+  #The init value used by this generator.
+  attr_reader :init
+
   #Initialize the PRN generator
   def initialize(arg_a=nil, arg_b=nil)
     #Extract the parameters.
     if arg_a.is_a?(Hash)
       seed = arg_a[:seed]
       @depth = arg_a[:depth]
+      @init  = arg_a[:init]
     else
       seed = arg_a
       @depth = arg_b
@@ -38,8 +43,15 @@ class FibonacciRng
     @depth ||= 8
 
     #Validate the depth.
-    unless DEPTHS === depth
-      fail "Invalid depth value #{depth}. Allowed values are #{DEPTHS}"
+    unless DEPTHS === @depth
+      fail "Invalid depth value #{@depth}. Allowed values are #{DEPTHS}"
+    end
+
+    @init ||= 32 * @depth + 768
+
+    #Validate the depth.
+    unless INITS === @init
+      fail "Invalid init value #{@init}. Allowed values are #{INITS}"
     end
 
     #Build the generator.
