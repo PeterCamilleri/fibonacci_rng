@@ -27,15 +27,16 @@ class FibonacciRng
   attr_reader :init
 
   #Initialize the PRN generator
-  def initialize(arg_a=nil, arg_b=nil)
+  def initialize(arg_a=nil, arg_b=nil, arg_c=nil)
     #Extract the parameters.
     if arg_a.is_a?(Hash)
-      seed = arg_a[:seed]
+      seed   = arg_a[:seed]
       @depth = arg_a[:depth]
       @init  = arg_a[:init]
     else
-      seed = arg_a
+      seed   = arg_a
       @depth = arg_b
+      @init  = arg_c
     end
 
     #Set up the default parameters if needed.

@@ -44,7 +44,7 @@ require 'fibonacci_rng'
 Then in an appropriate place in the code:
 
 ```ruby
-@my_rng = FibonacciRng.new(depth, seed)
+@my_rng = FibonacciRng.new(seed, depth, init)
 ```
 
 Where:
@@ -52,6 +52,8 @@ Where:
 * seed is an optional number or string or other object that has a repeatable
 value and responds to the to_s method. Defaults to a value derived from system
 entropy.
+* init is the number of initial training cycles used to seed the generator. The
+allowed range is 1 to 1,000,000. By default the init value is 32*depth+768.
 
 Here is an overview of the available options.
 
@@ -68,6 +70,8 @@ Here is an overview of the available options.
 #Method #4
 @my_rng = FibonacciRng.new(FibonacciRng.new_seed, 12) # Random seed, depth = 12
 
+#Method #5
+@my_rng = FibonacciRng.new(FibonacciRng.new_seed, 12, 100) # Random seed, depth = 12 with 100 passes.
 ```
 In addition, keyword arguments are emulated (as of Version 0.4.0) so these
 additional options also are available:
@@ -77,21 +81,21 @@ additional options also are available:
 responds to the to_s method. Defaults to a value derived from system entropy.
 * init: value -- the number of initial training cycles used to seed the
 generator. The allowed range is 1 to 1,000,000. By default the init value is
-32*depth+768. This setting is only available with keyword arguments.
+32*depth+768.
 
 The following are examples of constructors with keyword arguments.
 
 ```ruby
-#Method #5
+#Method #6
 @my_rng = FibonacciRng.new(seed: 'seed')              # Specified seed = 'seed', depth = 8
 
-#Method #6
+#Method #7
 @my_rng = FibonacciRng.new(seed: 'seed', depth: 12)   # Specified seed = 'seed', depth = 12
 
-#Method #7
+#Method #8
 @my_rng = FibonacciRng.new(depth: 12)                 # Random seed, depth = 12
 
-#Method #8
+#Method #9
 @my_rng = FibonacciRng.new(seed: 'seed', init: 2048)  # Specified seed = 'seed' with 2048 passes.
 
 ```
