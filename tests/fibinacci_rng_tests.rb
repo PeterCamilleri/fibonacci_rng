@@ -173,4 +173,21 @@ class FibonacciRngTester < Minitest::Test
     assert_equal('khto lk si', rng.string(10, 'Always look on the bright side of life.'))
   end
 
+  def test_for_data_stability
+    #Make sure incompatibilities do not creep in.
+    expected = [184,  93,   0, 240,  34, 184,   4, 220, 126, 132,
+                 13,  67, 166, 107, 165,  66,  68, 120, 102, 110,
+                212,  99,  80, 167,   9,  56,  47, 167, 127, 195,
+                169,  34, 184,  97, 136, 176, 214, 104, 218, 103,
+                180,  16,  83, 204, 128,  81,  63,  56, 237, 165,
+                  0,  88, 129,  40, 152,  44, 189,  35, 205, 249,
+                 77,  94, 142,  18,  60, 248,  49, 172, 235,  83,
+                 84,  65, 181, 117,  16, 170, 222,  97, 130, 217]
+
+    prng = FibonacciRng.new("%s*08^_Tg{NnirtZ-94)q9z2l+~bB5")
+    result = Array.new(80) { prng.byte }
+
+    assert_equal(expected, result)
+  end
+
 end
