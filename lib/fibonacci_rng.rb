@@ -55,6 +55,8 @@ class FibonacciRng
       fail "Invalid init value #{@init}. Allowed values are #{INITS}"
     end
 
+    build_fast_spinner
+
     #Build the generator.
     srand(seed)
   end

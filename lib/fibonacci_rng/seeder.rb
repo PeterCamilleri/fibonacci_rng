@@ -6,7 +6,7 @@ class FibonacciRng
   #Set up a new seed value
   def srand(seed=FibonacciRng.new_seed)
     @seed = seed
-    @buffer = Array.new(@depth+2, 0)
+    @buffer = Array.new(@depth, 0)
     seedsrc = (seed.to_s + seed.class.to_s + 'Leonardo Pisano').each_byte.cycle
     indxsrc = (0...depth).cycle
     do_reseed(indxsrc, seedsrc)
