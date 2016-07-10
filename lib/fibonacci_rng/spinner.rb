@@ -10,18 +10,8 @@ class FibonacciRng
     end
   end
 
-#  private
-
   #Cycle through the PRNG once.
   #This method is now in ext/fibonacci_rng/fibonacci_rng.c
-# def do_spin
-#   @buffer[-2] = @buffer[0]
-#   @buffer[-1] = @buffer[1]
-#
-#   (0...@depth).each do |idx|
-#     tmp = @buffer[idx+2]
-#     @buffer[idx] = (@buffer[idx+1] + ((tmp >> 1)|(tmp.odd? ? TOP : 0))) & CHOP
-#   end
-# end
-
+  # def do_spin
+  #   code removed.
 end
