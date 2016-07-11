@@ -34,11 +34,13 @@ end
 # Baseline overheads       12.876  (± 7.8%) i/s -     65.000
 # Baseline overheads       13.242  (± 7.6%) i/s -     66.000
 # Baseline overheads       13.180  (± 7.6%) i/s -     66.000
+# Baseline overheads       12.697  (± 0.0%) i/s -     64.000
 # Baseline overheads       12.565  (± 8.0%) i/s -     63.000
 
 # Generator with mersenne   7.317  (± 0.0%) i/s -     37.000
 # Generator with mersenne   7.559  (± 0.0%) i/s -     38.000
 # Generator with mersenne   7.487  (± 0.0%) i/s -     38.000
+# Generator with mersenne   7.433  (± 0.0%) i/s -     38.000
 # Generator with mersenne   7.213  (± 0.0%) i/s -     36.000
 
 # Generator with 1.1.1      0.294  (± 0.0%) i/s -      2.000  in   6.810018s
