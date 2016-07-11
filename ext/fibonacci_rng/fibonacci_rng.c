@@ -17,8 +17,7 @@ static VALUE do_spin(VALUE self)
   depth  = FIX2INT(rb_iv_get(self, "@depth"));
 
   // @buffer[-2] = @buffer[0]
-  temp = rb_ary_entry(buffer, 0);
-  rb_ary_store(buffer, -2, temp);
+  rb_ary_store(buffer, -2, rb_ary_entry(buffer, 0));
 
   // @buffer[-1] = p_one = @buffer[1]
   temp = rb_ary_entry(buffer, 1);
@@ -32,8 +31,10 @@ static VALUE do_spin(VALUE self)
     p_two = FIX2INT(rb_ary_entry(buffer, idx+2));
 
     // @buffer[idx] = (p_one + ((p_two >> 1) | (p_two.odd? ? TOP : 0))) & CHOP
-    temp = INT2FIX((p_one + ((p_two >> 1) | ((p_two & 1) ? TOP : 0))) & CHOP);
-    rb_ary_store(buffer, idx, temp);
+    rb_ary_store(buffer,
+                 idx,
+                 INT2FIX((p_one + ((p_two >> 1) | ((p_two & 1) ? TOP : 0))) & CHOP)
+                );
 
     // p_one = p_two
     p_one = p_two;
