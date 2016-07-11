@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#The class of Fibonacci inspired random number generators.
+#* generator.rb - The data generation methods.
 class FibonacciRng
 
   #A (mostly) compatible access point for random numbers.

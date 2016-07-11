@@ -10,12 +10,25 @@ require_relative "fibonacci_rng/fibonacci_rng"
 #The class of Fibonacci inspired random number generators.
 class FibonacciRng
 
+  #Mask off the lower 29 bits.
   CHOP   = 0x1FFFFFFF
+
+  #The top bit of the 29 bit integer.
   TOP    = 0x10000000
+
+  #A mask for a byte.
   BYTE   = 0xFF
+
+  #A mask for a word.
   WORD   = 0xFFFF
+
+  #The floating point basis.
   BASE   = (CHOP+1).to_f
+
+  #Allowed depth values.
   DEPTHS = 2..256
+
+  #Allowed init values.
   INITS  = 1..1_000_000
 
   #The depth of the Fibonacci array.

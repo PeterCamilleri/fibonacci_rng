@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#The class of Fibonacci inspired random number generators.
+#* spinner.rb - Methods to churn the generator.
 class FibonacciRng
 
   #Cycle through the PRNG count times.

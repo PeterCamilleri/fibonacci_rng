@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#The class of Fibonacci inspired random number generators.
+#* seeder.rb - Compute the initial seed state of the generator.
 class FibonacciRng
 
   #Set up a new seed value

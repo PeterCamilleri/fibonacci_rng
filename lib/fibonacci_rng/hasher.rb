@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#The class of Fibonacci inspired random number generators.
+#* hasher.rb - Methods that allow the generation of simple hashes.
 class FibonacciRng
 
   #Get the value of the rng state as a number.

@@ -2,8 +2,21 @@
 # coding: utf-8
 
 require "bundler/gem_tasks"
+require 'rdoc/task'
 require 'rake/testtask'
 require "rake/extensiontask"
+
+#Generate internal documentation with rdoc.
+RDoc::Task.new do |rdoc|
+  rdoc.rdoc_dir = "rdoc"
+
+  #List out all the files to be documented.
+  rdoc.rdoc_files.include("lib/**/*.rb", "license.txt", "README.md")
+
+  #Set a title.
+  rdoc.options << '--title' << 'Fibonacci RNG Internals.'
+
+end
 
 #Build the extension
 Rake::ExtensionTask.new("fibonacci_rng") do |ext|

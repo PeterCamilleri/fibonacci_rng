@@ -1,6 +1,7 @@
 # coding: utf-8
 
-#The class of Fibonacci inspired random number generators.
+#* version.rb - The version of this gem.
 class FibonacciRng
+  #The gem version.
   VERSION = "1.2.0"
 end
