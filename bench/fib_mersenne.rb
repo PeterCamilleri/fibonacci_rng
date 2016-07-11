@@ -144,14 +144,14 @@ end
 # Generator with mersenne
 #                          1.000  i/100ms
 # Calculating -------------------------------------
-#   Baseline overheads     12.565  (± 8.0%) i/s -     63.000
+#   Baseline overheads     13.492  (± 7.4%) i/s -     68.000
 # Generator with fibonacci
-#                           4.346  (± 0.0%) i/s -     22.000
+#                           8.852  (± 0.0%) i/s -     45.000
 # Generator with mersenne
-#                           7.213  (± 0.0%) i/s -     36.000
+#                           7.650  (± 0.0%) i/s -     39.000
 #
 # Comparison:
-#   Baseline overheads:       12.6 i/s
-# Generator with mersenne:     7.2 i/s - 1.74x slower
-# Generator with fibonacci:    4.3 i/s - 2.89x slower
+#   Baseline overheads:       13.5 i/s
+# Generator with fibonacci:        8.9 i/s - 1.52x slower
+# Generator with mersenne:        7.6 i/s - 1.76x slower
 
