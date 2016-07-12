@@ -57,6 +57,8 @@ class FibonacciRng
   ASCII_7_BIT = (' '..'~').to_a.join
 
   #Create a random string
+  #<br>Endemic Code Smells.
+  #* :reek:FeatureEnvy
   def string(length, set=ASCII_7_BIT)
     set_length = set.length
     result = ""
