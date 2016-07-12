@@ -40,7 +40,7 @@ static VALUE do_spin(VALUE self)
     p_one = p_two;
   }
 
-  return self;
+  return Qnil;
 }
 
 // The extension initialization routine.
