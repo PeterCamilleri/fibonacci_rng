@@ -46,7 +46,7 @@ end
 # Generator with 1.1.1      0.294
 # Generator with 1.1.2      0.327
 # Generator with 1.1.3      0.439
-# Generator with 1.2.0      1.471
+# Generator with 1.3.0      1.471
 # Generator with 9.9.9      4.346
 
 
@@ -115,7 +115,7 @@ end
 # Generator with mersenne:     7.5 i/s -  1.76x slower
 # Generator with fibonacci:    0.4 i/s - 30.04x slower
 
-# fibonacci_rng version 1.2.0 - speed_up_three, master branch.
+# fibonacci_rng version 1.3.0 - speed_up_three.
 
 # Warming up --------------------------------------
 #   Baseline overheads     1.000  i/100ms
