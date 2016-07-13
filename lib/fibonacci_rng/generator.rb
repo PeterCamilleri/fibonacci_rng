@@ -23,7 +23,7 @@ class FibonacciRng
 
     begin
       do_spin
-    end until (value = @buffer[0]) < limit
+    end until (value = get_root) < limit
 
     value % sides
   end
@@ -31,7 +31,7 @@ class FibonacciRng
   #Get a pseudo random byte
   def byte
     do_spin
-    @buffer[0] & BYTE
+    get_root & BYTE
   end
 
   #Get a string of random bytes
@@ -44,13 +44,13 @@ class FibonacciRng
   #Get a pseudo random word
   def word
     do_spin
-    @buffer[0] & WORD
+    get_root & WORD
   end
 
   #Get a pseudo random float
   def float
     do_spin
-    @buffer[0].to_f / BASE
+    get_root.to_f / BASE
   end
 
   #The printable seven bit ASCII characters.

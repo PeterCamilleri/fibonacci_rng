@@ -193,6 +193,8 @@ class FibonacciRngTester < Minitest::Test
   def test_some_internals
     rng = FibonacciRng.new(0)
 
+    (0...(rng.depth+2)).each { |i| rng.set_data(i, 0) }
+
     assert_equal([0, 0, 0, 0, 0, 0, 0, 0, 0, 0], rng.get_buffer)
     assert_equal(0, rng.get_data(1))
 

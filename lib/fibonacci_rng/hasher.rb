@@ -6,7 +6,7 @@ class FibonacciRng
   #Get the value of the rng state as a number.
   def hash_value
     result = 0
-    @buffer[0...@depth].each {|value| result = (result << 29) + value }
+    (0...@depth).each {|index| result = (result << 29) + get_data(index) }
     result
   end
 
@@ -28,9 +28,9 @@ class FibonacciRng
 
   #Add a value to the generator.
   def add_value(value)
-    index = @buffer[0] % @depth
+    index = get_root % @depth
     do_spin
-    @buffer[index] += value
+    set_data(index, (get_data(index) + value) & CHOP)
     do_spin
   end
 
