@@ -30,7 +30,7 @@ class FibonacciRng
   def add_value(value)
     index = get_root % @depth
     do_spin
-    set_data(index, (get_data(index) + value) & CHOP)
+    add_data(index, value)
     do_spin
   end
 

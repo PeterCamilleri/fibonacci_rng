@@ -44,7 +44,7 @@ class FibonacciRng
   def do_reseed(indxsrc, seedsrc)
     @init.times do
       index = indxsrc.next
-      set_data(index, (get_data(index) + seedsrc.next) & CHOP)
+      add_data(index, seedsrc.next)
       do_spin
     end
   end

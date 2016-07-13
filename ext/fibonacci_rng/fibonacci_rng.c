@@ -2,7 +2,7 @@
 
 #include "fibonacci_rng.h"
 
-#define BUFFER "@int_buffer"
+#define BUFFER "i_b"
 
 static ID  id_push;
 
@@ -43,7 +43,8 @@ static VALUE get_data(VALUE self, VALUE index)
   int    *pbuffer;
   int    idx;
 
-  Data_Get_Struct(rb_iv_get(self, BUFFER), int, pbuffer);
+  //Data_Get_Struct(rb_iv_get(self, BUFFER), int, pbuffer);
+  pbuffer = (int *)DATA_PTR(rb_iv_get(self, BUFFER));
   idx = FIX2INT(index);
 
   return INT2FIX(pbuffer[idx]);
@@ -56,11 +57,29 @@ static VALUE set_data(VALUE self, VALUE index, VALUE number)
   int    idx;
   int    num;
 
-  Data_Get_Struct(rb_iv_get(self, BUFFER), int, pbuffer);
+  //Data_Get_Struct(rb_iv_get(self, BUFFER), int, pbuffer);
+  pbuffer = (int *)DATA_PTR(rb_iv_get(self, BUFFER));
   idx = FIX2INT(index);
   num = FIX2INT(number);
 
-  pbuffer[idx] = num;
+  pbuffer[idx] = num & CHOP;
+
+  return number;
+}
+
+// Add a value to the buffer
+static VALUE add_data(VALUE self, VALUE index, VALUE number)
+{
+  int    *pbuffer;
+  int    idx;
+  int    num;
+
+  //Data_Get_Struct(rb_iv_get(self, BUFFER), int, pbuffer);
+  pbuffer = (int *)DATA_PTR(rb_iv_get(self, BUFFER));
+  idx = FIX2INT(index);
+  num = FIX2INT(number);
+
+  pbuffer[idx] = (pbuffer[idx] + num) & CHOP;
 
   return number;
 }
@@ -75,7 +94,8 @@ static VALUE get_buffer(VALUE self)
   int    idx;
 
   depth = FIX2INT(rb_iv_get(self, "@depth")); // depth+2 == buffer.length
-  Data_Get_Struct(rb_iv_get(self, BUFFER), int, pbuffer);
+  //Data_Get_Struct(rb_iv_get(self, BUFFER), int, pbuffer);
+  pbuffer = (int *)DATA_PTR(rb_iv_get(self, BUFFER));
 
   result = rb_ary_new();
 
@@ -98,11 +118,13 @@ static VALUE do_spin(VALUE self)
   int   p_two;
   int   idx;
 
-  VALUE temp;
+  int   *reader;
+  int   *writer;
 
   // Get some instance variables from Ruby to C.
-  depth = FIX2INT(rb_iv_get(self, "@depth")); // depth+2 == buffer.length
-  Data_Get_Struct(rb_iv_get(self, BUFFER), int, pbuffer);
+  depth = FIX2INT(rb_iv_get(self, "@depth"));
+  //Data_Get_Struct(rb_iv_get(self, BUFFER), int, pbuffer);
+  pbuffer = (int *)DATA_PTR(rb_iv_get(self, BUFFER));
 
   // @buffer[-2] = @buffer[0]
   pbuffer[depth] = pbuffer[0];
@@ -110,14 +132,19 @@ static VALUE do_spin(VALUE self)
   // @buffer[-1] = p_one = @buffer[1]
   pbuffer[depth+1] = p_one = pbuffer[1];
 
+  writer = &pbuffer[0];
+  reader = &pbuffer[2];
+
   // (0...@depth).each do |idx|
   for (idx = 0; idx < depth; idx++)
   {
     // p_two = @buffer[idx+2]
-    p_two = pbuffer[idx+2];
+    p_two = *reader;
+    reader++;
 
     // @buffer[idx] = (p_one + ((p_two >> 1) | (p_two.odd? ? TOP : 0))) & CHOP
-    pbuffer[idx] = (p_one + ((p_two >> 1) | ((p_two & 1) ? TOP : 0))) & CHOP;
+    *writer = (p_one + ((p_two >> 1) | ((p_two & 1) ? TOP : 0))) & CHOP;
+    writer++;
 
     // p_one = p_two
     p_one = p_two;
@@ -140,7 +167,8 @@ void Init_fibonacci_rng(void)
   rb_define_method(cFibonacciRng, "get_root",     get_root,     0);
   rb_define_method(cFibonacciRng, "get_data",     get_data,     1);
   rb_define_method(cFibonacciRng, "set_data",     set_data,     2);
+  rb_define_method(cFibonacciRng, "add_data",     add_data,     2);
   rb_define_method(cFibonacciRng, "get_buffer",   get_buffer,   0);
-  rb_define_method(cFibonacciRng, "do_spin"     , do_spin     , 0);
+  rb_define_method(cFibonacciRng, "do_spin",      do_spin,      0);
 }
 
