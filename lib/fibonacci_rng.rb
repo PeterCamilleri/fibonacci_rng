@@ -69,6 +69,9 @@ class FibonacciRng
       fail "Invalid init value #{@init}. Allowed values are #{INITS}"
     end
 
+    #Set up the 'C' internal state.
+    initialize_c
+
     #Build the generator.
     srand(seed)
   end
