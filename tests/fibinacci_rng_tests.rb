@@ -190,4 +190,19 @@ class FibonacciRngTester < Minitest::Test
     assert_equal(expected, result)
   end
 
+  def test_some_internals
+    rng = FibonacciRng.new(0)
+
+    assert_equal([0, 0, 0, 0, 0, 0, 0, 0, 0, 0], rng.get_buffer)
+    assert_equal(0, rng.get_data(1))
+
+    rng.set_data(1, 10)
+    assert_equal(10, rng.get_data(1))
+    assert_equal([0, 10, 0, 0, 0, 0, 0, 0, 0, 0], rng.get_buffer)
+
+    rng.set_data(0, 12)
+    assert_equal(12, rng.get_root)
+    assert_equal([12, 10, 0, 0, 0, 0, 0, 0, 0, 0], rng.get_buffer)
+  end
+
 end
