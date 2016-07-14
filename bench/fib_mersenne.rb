@@ -1,5 +1,15 @@
 require "benchmark/ips"
-require "fibonacci_rng"
+
+if ARGV[0] == 'local'
+  puts "Using local copy"
+  require_relative "../lib/fibonacci_rng"
+else
+  puts "Using system gem."
+  require "fibonacci_rng"
+end
+
+puts "fibonacci_rng version: #{FibonacciRng::VERSION}"
+puts
 
 COUNT = 1_000_000
 
@@ -47,6 +57,7 @@ end
 # Generator with 1.1.2      0.327
 # Generator with 1.1.3      0.439
 # Generator with 1.3.0      1.471
+# Generator with 1.3.1      0.957
 # Generator with 9.9.9      4.346
 
 
@@ -134,6 +145,26 @@ end
 #   Baseline overheads:       13.2 i/s
 # Generator with mersenne:     7.5 i/s - 1.76x slower
 # Generator with fibonacci:    1.5 i/s - 8.95x slower
+
+# fibonacci_rng version 1.3.1 - speed_up_four.
+#
+# Warming up --------------------------------------
+#   Baseline overheads     1.000  i/100ms
+# Generator with fibonacci
+#                          1.000  i/100ms
+# Generator with mersenne
+#                          1.000  i/100ms
+# Calculating -------------------------------------
+#   Baseline overheads     13.443  (± 7.4%) i/s -     67.000
+# Generator with fibonacci
+#                           0.957  (± 0.0%) i/s -      5.000
+# Generator with mersenne
+#                           7.497  (± 0.0%) i/s -     38.000
+#
+# Comparison:
+#   Baseline overheads:       13.4 i/s
+# Generator with mersenne:     7.5 i/s - 1.79x slower
+# Generator with fibonacci:    1.0 i/s - 14.05x slower
 
 # fibonacci_rng version 9.9.9 - no_spinner branch (not functional)
 #
