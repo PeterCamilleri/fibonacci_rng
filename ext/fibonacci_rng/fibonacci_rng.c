@@ -153,6 +153,16 @@ static VALUE do_spin(VALUE self)
   return Qnil;
 }
 
+// Generate a random byte value.
+static VALUE get_byte(VALUE self)
+{
+  int    *pbuffer;
+
+  Data_Get_Struct(rb_iv_get(self, BUFFER), int, pbuffer);
+  do_spin(self);
+  return INT2FIX(pbuffer[0] & 0xFF);
+}
+
 // The extension initialization routine.
 void Init_fibonacci_rng(void)
 {
@@ -163,6 +173,7 @@ void Init_fibonacci_rng(void)
 
   // Connect these methods to the FibonacciRng class.
   cFibonacciRng = rb_const_get(rb_cObject, rb_intern("FibonacciRng"));
+  rb_define_method(cFibonacciRng, "byte",         get_byte,     0);
   rb_define_method(cFibonacciRng, "do_spin",      do_spin,      0);
   rb_define_method(cFibonacciRng, "get_root",     get_root,     0);
   rb_define_method(cFibonacciRng, "get_data",     get_data,     1);

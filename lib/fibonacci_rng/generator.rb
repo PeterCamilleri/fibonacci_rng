@@ -29,10 +29,10 @@ class FibonacciRng
   end
 
   #Get a pseudo random byte
-  def byte
-    do_spin
-    get_root & BYTE
-  end
+#  def byte
+#    do_spin
+#    get_root & BYTE
+#  end
 
   #Get a string of random bytes
   def bytes(length)
