@@ -1,5 +1,15 @@
 require "benchmark/ips"
-require "fibonacci_rng"
+
+if ARGV[0] == 'local'
+  puts "Using local copy"
+  require_relative "../lib/fibonacci_rng"
+else
+  puts "Using system gem."
+  require "fibonacci_rng"
+end
+
+puts "fibonacci_rng version: #{FibonacciRng::VERSION}"
+puts
 
 COUNT = 1_000_000
 

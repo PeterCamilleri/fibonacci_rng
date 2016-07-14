@@ -163,12 +163,12 @@ void Init_fibonacci_rng(void)
 
   // Connect these methods to the FibonacciRng class.
   cFibonacciRng = rb_const_get(rb_cObject, rb_intern("FibonacciRng"));
-  rb_define_method(cFibonacciRng, "initialize_c", initialize_c, 0);
+  rb_define_method(cFibonacciRng, "do_spin",      do_spin,      0);
   rb_define_method(cFibonacciRng, "get_root",     get_root,     0);
   rb_define_method(cFibonacciRng, "get_data",     get_data,     1);
   rb_define_method(cFibonacciRng, "set_data",     set_data,     2);
   rb_define_method(cFibonacciRng, "add_data",     add_data,     2);
   rb_define_method(cFibonacciRng, "get_buffer",   get_buffer,   0);
-  rb_define_method(cFibonacciRng, "do_spin",      do_spin,      0);
+  rb_define_method(cFibonacciRng, "initialize_c", initialize_c, 0);
 }
 
