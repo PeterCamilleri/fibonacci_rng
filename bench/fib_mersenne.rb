@@ -56,7 +56,7 @@ end
 # Generator with 1.1.1      0.294
 # Generator with 1.1.2      0.327
 # Generator with 1.1.3      0.439
-# Generator with 1.3.0      1.176
+# Generator with 1.3.0      1.186
 # Generator with 1.3.1      0.957
 # Generator with 9.9.9      4.346
 
@@ -137,7 +137,7 @@ end
 # Calculating -------------------------------------
 #   Baseline overheads     12.705  (± 0.0%) i/s -     64.000
 # Generator with fibonacci
-#                           1.176  (± 0.0%) i/s -      6.000
+#                           1.186  (± 0.0%) i/s -      6.000
 # Generator with mersenne
 #                           7.406  (± 0.0%) i/s -     38.000
 #
