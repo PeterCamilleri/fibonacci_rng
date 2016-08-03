@@ -120,7 +120,8 @@ In addition, here are some other options:
 @my_rng.dice(100)     # A "random" integer between 0 and 99
 @my_rng.byte          # A "random" integer between 0 and 255
 @my_rng.word          # A "random" integer between 0 and 65535
-@my_rng.float         # A "random" float between 0 and less than 1.
+@my_rng.float         # A quick "random" float between 0 and less than 1.
+@my_rng.double        # A better "random" float between 0 and less than 1.
 @my_rng.string(10)    # A "random" string of 10 characters in length.
 
 # A "random" string of 10 characters in length from the string 'abcdefg'.
@@ -135,6 +136,9 @@ and also available are these helpful methods:
 @my_rng.spin(count)   # Spin the generator count times.
 @my_rng.spin          # Spin the generator once.
 ```
+
+Note: reseed is an alias of the srand method. The reseed method is preferred
+due to its clearer name.
 
 If more than one stream of numbers is required, it is best to use multiple
 instances of FibonacciRng objects rather than rely on one. This will help avoid
@@ -192,8 +196,7 @@ Each time any of these is run, a different salt string will be generated.
 not. However, it doesn't matter either. The bytes method was added to improve
 interoperability with the standard Random class. Thus deprecating it was a
 mistake. This note serves to announce that the bytes method is not going away.
-The source code will say it is deprecated until the next code update, but that
-comment is in error.
+
 
 ## Theory of Operation
 
