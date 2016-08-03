@@ -206,10 +206,11 @@ class FibonacciRngTester < Minitest::Test
                 0.2181396260857582,  0.7659928575158119,   0.9803028162568808,
                 0.08270183578133583, 0.5765040181577206,   0.061894554644823074]
 
-
     result = Array.new(48) { prng.float }
 
-    assert_equal(expected, result)
+    (0...48).each do |i|
+      assert_in_delta(expected[i], result[i], 1.0e-16)
+    end
 
   end
 
