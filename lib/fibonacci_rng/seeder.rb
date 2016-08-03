@@ -12,6 +12,8 @@ class FibonacciRng
     do_reseed(indxsrc, seedsrc)
   end
 
+  alias :reseed :srand
+
   private
 
   #A patch for the seeder class name bug.
