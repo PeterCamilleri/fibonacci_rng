@@ -14,6 +14,7 @@ class FibonacciRng
   BYTE   = 0xFF
   WORD   = 0xFFFF
   BASE   = (CHOP+1).to_f
+  DOUBLE = BASE*BASE
   DEPTHS = 2..256
   INITS  = 1..1_000_000
 

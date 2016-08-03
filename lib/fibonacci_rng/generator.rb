@@ -53,6 +53,14 @@ class FibonacciRng
     @buffer[0].to_f / BASE
   end
 
+  #Get a better pseudo random float
+  def double
+    do_spin
+    part_one = @buffer[0].to_f * BASE
+    do_spin
+    (part_one + @buffer[0].to_f) / DOUBLE
+  end
+
   #The printable seven bit ASCII characters.
   ASCII_7_BIT = (' '..'~').to_a.join
 
