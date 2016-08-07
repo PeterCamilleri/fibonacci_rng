@@ -167,10 +167,13 @@ class FibonacciRngTester < Minitest::Test
 
   def test_building_strings
     rng = FibonacciRng.new(0)
-
     assert_equal("c}l'(q@g\\z", rng.string(10))
     assert_equal('2727573312', rng.string(10, '0123456789'))
     assert_equal('khto lk si', rng.string(10, 'Always look on the bright side of life.'))
+
+    rng = FibonacciRng.new("%s*08^_Tg{NnirtZ-94)q9z2l+~bB5")
+    assert_equal(",-+Idi6~ ~", rng.string(10))
+    assert_equal('5901964804', rng.string(10, '0123456789'))
   end
 
   def test_for_data_stability
