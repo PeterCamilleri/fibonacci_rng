@@ -62,7 +62,7 @@ class FibonacciRng
   end
 
   #The printable seven bit ASCII characters.
-  ASCII_7_BIT = (' '..'~').to_a.join
+  ASCII_7_BIT = (' '..'~').to_a.join.freeze
 
   #Create a random string
   #<br>Endemic Code Smells.
