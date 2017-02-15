@@ -50,15 +50,15 @@ class FibonacciRng
   #Get a pseudo random float
   def float
     do_spin
-    @buffer[0].to_f / BASE
+    raw_float / BASE
   end
 
   #Get a better pseudo random float
   def double
     do_spin
-    part_one = @buffer[0].to_f * BASE
+    part_one = raw_float * BASE
     do_spin
-    (part_one + @buffer[0].to_f) / DOUBLE
+    (part_one + raw_float) / DOUBLE
   end
 
   #The printable seven bit ASCII characters.
@@ -72,6 +72,13 @@ class FibonacciRng
     result = ""
     length.times {result << set[dice(set_length)]}
     result
+  end
+
+  private
+
+  #Get a float value.
+  def raw_float
+    @buffer[0].to_f
   end
 
 end

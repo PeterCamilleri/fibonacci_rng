@@ -24,6 +24,9 @@ DuplicateMethodCall:
 FeatureEnvy:
   enabled: true
   exclude: []
+InstanceVariableAssumption:
+  enabled: false
+  exclude: []
 IrresponsibleModule:
   enabled: true
   exclude: []
@@ -57,6 +60,8 @@ TooManyInstanceVariables:
   enabled: true
   exclude: []
   max_instance_variables: 9
+TooManyConstants:
+  max_constants: 10
 TooManyMethods:
   enabled: true
   exclude: []
