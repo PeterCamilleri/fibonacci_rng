@@ -212,6 +212,7 @@ N is shown below:
 <br>Notes:
 * The last two elements are copies of the first two elements before
 the array was transformed.
+* The notation ror(x) above signifies a 29 bit rotate right of the argument.
 * Not shown above for brevity, the result of each addition is masked with the
 value 0x1FFFFFFF before being stored. This masks off any data beyond the low
 29 bits.
