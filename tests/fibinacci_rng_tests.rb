@@ -13,50 +13,88 @@ class FibonacciRngTester < Minitest::Test
 
   def test_how_we_build_generators
     gen = FibonacciRng.new
+    assert(gen.validate)
     assert_equal(8, gen.depth)
     assert_equal(String, gen.seed.class)
     assert_equal(1024, gen.init)
+    assert(gen.validate)
 
     gen = FibonacciRng.new('seed')
+    assert(gen.validate)
     assert_equal(8, gen.depth)
     assert_equal('seed', gen.seed)
     assert_equal(1024, gen.init)
+    assert(gen.validate)
 
     gen = FibonacciRng.new('seed', 12)
+    assert(gen.validate)
     assert_equal(12, gen.depth)
     assert_equal('seed', gen.seed)
     assert_equal(1152, gen.init)
+    assert(gen.validate)
 
     gen = FibonacciRng.new('seed', 12, 2048)
+    assert(gen.validate)
     assert_equal(12, gen.depth)
     assert_equal('seed', gen.seed)
     assert_equal(2048, gen.init)
+    assert(gen.validate)
   end
 
   def test_building_with_keywords
     gen = FibonacciRng.new(seed: 'seed')
+    assert(gen.validate)
     assert_equal(8, gen.depth)
     assert_equal('seed', gen.seed)
     assert_equal(1024, gen.init)
+    assert(gen.validate)
 
     gen = FibonacciRng.new(depth: 12)
+    assert(gen.validate)
     assert_equal(12, gen.depth)
     assert_equal(String, gen.seed.class)
     assert_equal(1152, gen.init)
+    assert(gen.validate)
 
     gen = FibonacciRng.new(seed: 'seed', depth: 12)
+    assert(gen.validate)
     assert_equal(12, gen.depth)
     assert_equal('seed', gen.seed)
     assert_equal(1152, gen.init)
+    assert(gen.validate)
 
     gen = FibonacciRng.new(depth: 12, seed: 'seed')
+    assert(gen.validate)
     assert_equal(12, gen.depth)
     assert_equal('seed', gen.seed)
     assert_equal(1152, gen.init)
+    assert(gen.validate)
 
     gen = FibonacciRng.new(seed: 'seed', init: 2048)
+    assert(gen.validate)
     assert_equal('seed', gen.seed)
     assert_equal(2048, gen.init)
+    assert(gen.validate)
+  end
+
+  def test_that_it_detects_fatal_conditions
+    gen = FibonacciRng.new
+    assert(gen.validate)
+
+    gen.define_singleton_method(:kill) do
+      @buffer = Array.new(@buffer.length, 0)
+    end
+
+    gen.kill #Force a fatal error condition.
+
+    assert_raises(InvalidFibonacciRngState) {gen.validate}
+    assert_raises(InvalidFibonacciRngState) {gen.spin(6)}
+    assert_raises(InvalidFibonacciRngState) {gen.dice(6)}
+    assert_raises(InvalidFibonacciRngState) {gen.byte}
+    assert_raises(InvalidFibonacciRngState) {gen.word}
+    assert_raises(InvalidFibonacciRngState) {gen.float}
+    assert_raises(InvalidFibonacciRngState) {gen.double}
+
   end
 
   def test_that_rejects_bad_parms

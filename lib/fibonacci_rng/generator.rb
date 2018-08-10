@@ -25,12 +25,14 @@ class FibonacciRng
       do_spin
     end until (value = @buffer[0]) < limit
 
+    validate
     value % sides
   end
 
   #Get a pseudo random byte
   def byte
     do_spin
+    validate
     @buffer[0] & BYTE
   end
 
@@ -44,12 +46,14 @@ class FibonacciRng
   #Get a pseudo random word
   def word
     do_spin
+    validate
     @buffer[0] & WORD
   end
 
   #Get a pseudo random float
   def float
     do_spin
+    validate
     raw_float / BASE
   end
 
@@ -58,6 +62,7 @@ class FibonacciRng
     do_spin
     part_one = raw_float * BASE
     do_spin
+    validate
     (part_one + raw_float) / DOUBLE
   end
 

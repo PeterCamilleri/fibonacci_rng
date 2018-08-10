@@ -4,6 +4,7 @@ require_relative "fibonacci_rng/seeder"
 require_relative "fibonacci_rng/hasher"
 require_relative "fibonacci_rng/spinner"
 require_relative "fibonacci_rng/generator"
+require_relative "fibonacci_rng/validate"
 require_relative "fibonacci_rng/version"
 
 #The class of Fibonacci inspired random number generators.

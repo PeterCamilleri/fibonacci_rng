@@ -8,6 +8,8 @@ class FibonacciRng
     count.times do
       do_spin
     end
+    
+    validate
   end
 
   private

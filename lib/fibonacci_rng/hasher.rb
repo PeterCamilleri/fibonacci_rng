@@ -22,6 +22,7 @@ class FibonacciRng
     end
 
     do_spin if str.empty?
+    validate
   end
 
   private
@@ -32,6 +33,7 @@ class FibonacciRng
     do_spin
     @buffer[index] += value
     do_spin
+    validate
   end
 
 end
