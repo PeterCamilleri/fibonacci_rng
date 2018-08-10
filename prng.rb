@@ -21,7 +21,7 @@ module PrngTestSuite
     puts "Where:"
     puts "  <locn>  fib code location, either 'gem' or 'local'"
     puts "  <gen>   select a generator, either 'fib' or 'int'"
-    puts "  <test>  select a test, either 'chisq', 'auto', or 'scatter'"
+    puts "  <test>  select one of 'chisq', 'auto', 'scatter', or 'torture'"
     puts "  <max>   the number of bins to test    (2..65535)"
     puts "  <count> the number of samples to test (1..1000000)"
     puts
@@ -45,6 +45,7 @@ require_relative 'tools/internal_rng'
 require_relative 'tools/chi_squared'
 require_relative 'tools/auto_corr'
 require_relative 'tools/scatter_plot'
+require_relative 'tools/torture_test'
 
 module PrngTestSuite
 
@@ -63,6 +64,8 @@ module PrngTestSuite
       tester = AutoCorrelator.new
     elsif ARGV[2] == 'scatter'
       tester = ScatterPlot.new
+    elsif ARGV[2] == 'torture'
+      tester = TortureTest.new
     else
       PrngTestSuite.usage "Error: missing or invalid test parameter."
     end
