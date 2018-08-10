@@ -5,14 +5,14 @@ class TortureTest
 
   #Run a scatter plot test on the random number generator.
   def run(gen, max, count)
-    max   *=100
-    count *=100
+    max   *=1000
+    count *=1000
 
-    puts "Starting torture test with #{max} of #{count} tests."
+    puts "Starting torture test with #{max} loops of #{count} tests."
 
     max.times do |i|
       gen.spin(count)
-      print "#{i} "
+      print (i+1).to_s.rjust(8)
     end
 
     puts
