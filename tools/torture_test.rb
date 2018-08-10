@@ -11,11 +11,7 @@ class TortureTest
     puts "Starting torture test with #{max} of #{count} tests."
 
     max.times do |i|
-
-      count.times do
-        gen.dice(20)
-      end
-
+      gen.spin(count)
       print "#{i} "
     end
 
