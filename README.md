@@ -268,6 +268,27 @@ TOP  = 0x10000000
 
 ```
 
+## Error Detection
+
+Like all systems, the fibonacci random number generator has a failure mode. If
+it should happen that all the internal data registers have a value of zero, the
+generator will be trapped in an endless state of zero output. It will cease to
+operate as a pseudo random number generator.
+
+While it is possible to show that this cannot occur in small generators, the
+case for larger ones is more difficult to analyze. To this end, the code now
+incorporates a test that at least one non-zero register is present. If this
+test should fail an exception "InvalidFibonacciRngState" is raised so that
+the application can take appropriate action.
+
+To date, torture testing of the generator has yielded no failures, but this is
+not a proof that one cannot happen.
+
+The test scans the registers until it finds a non-zero value. This means that
+it almost always only needs to look at one register, saving a great deal of
+execution time.
+
+
 ## Contributing
 
 Creating a good pseudo random number generator is quite an undertaking. For
