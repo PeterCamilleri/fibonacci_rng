@@ -9,10 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Peter Camilleri"]
   spec.email         = ["peter.c.camilleri@gmail.com"]
   spec.homepage      = "https://github.com/PeterCamilleri/fibonacci_rng"
-  spec.description   = "A Fibonacci inspired pseudo random number generator. " +
-                       "[Updated] The algorithm is changed to use bit rotate " +
-                       "instead of bit shift."
-  spec.summary       = "[Updated] A Fibonacci inspired pseudo random number generator."
+  spec.description   = "A Fibonacci inspired pseudo random number generator " +
+                       "with error detection."
+  spec.summary       = "A Fibonacci inspired pseudo random number generator."
   spec.license       = "MIT"
 
   raw_list = `git ls-files`.split($/)
@@ -20,7 +19,7 @@ Gem::Specification.new do |spec|
 
   spec.files         = raw_list
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.test_files    = spec.files.grep(%r{^(test)/})
   spec.require_paths = ["lib"]
 
   spec.required_ruby_version = '>= 1.9.3'
