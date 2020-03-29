@@ -3,13 +3,9 @@
 require_relative '../lib/fibonacci_rng'
 gem              'minitest'
 require          'minitest/autorun'
-require          'minitest_visible'
 
 #Test the monkey patches applied to the Object class.
 class FibonacciRngTester < Minitest::Test
-
-  #Track mini-test progress.
-  include MinitestVisible
 
   def test_how_we_build_generators
     gen = FibonacciRng.new
